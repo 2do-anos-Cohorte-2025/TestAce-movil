@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/intento_examen_fondo"
+    android:orientation="vertical"
+    android:padding="25dp"
+    android:textAlignment="center">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/tvTituloExamen"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="108dp"
+            android:textColor="@color/verde_oscuro"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/tvPreguntaActual"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvDescripcionExamen"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toEndOf="@+id/tvTituloExamen"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/tvTituloExamen"
+            app:layout_constraintTop_toBottomOf="@+id/tvTituloExamen" />
+
+
+        <TextView
+            android:id="@+id/tvPreguntaActual"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:textColor="@color/black"
+            android:textSize="25sp"
+            android:textAlignment="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvDescripcionExamen" />
+
+        <RadioGroup
+            android:id="@+id/rgOpciones"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="56dp"
+            android:orientation="vertical"
+            android:textSize="20sp"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toEndOf="@+id/tvPreguntaActual"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvPreguntaActual" />
+
+        <TextView
+            android:id="@+id/tvExamenFinalizado"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Examen finalizado"
+            android:textColor="@color/verde_oscuro"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <LinearLayout
+            android:layout_width="253dp"
+            android:layout_height="62dp"
+            android:layout_marginTop="88dp"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/rgOpciones"
+            app:layout_constraintStart_toStartOf="@+id/rgOpciones"
+            app:layout_constraintTop_toBottomOf="@+id/rgOpciones"
+            app:layout_constraintVertical_bias="0.0">
+
+            <Button
+                android:id="@+id/btnAnterior"
+                android:layout_width="120dp"
+                android:layout_height="60dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="152dp"
+                android:backgroundTint="@color/verde_claro"
+                android:text="Anterior"
+                android:textColor="@color/rosa_claro"
+                app:cornerRadius="12dp" />
+
+            <Button
+                android:id="@+id/btnSiguiente"
+                android:layout_width="120dp"
+                android:layout_height="60dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginLeft="8dp"
+                android:layout_marginBottom="152dp"
+                android:backgroundTint="@color/verde_claro"
+                android:text="Siguiente"
+                android:textColor="@color/rosa_claro"
+                app:cornerRadius="12dp" />
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</LinearLayout>
