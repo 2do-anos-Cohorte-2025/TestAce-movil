@@ -2,11 +2,14 @@ package com.ispc.testace.ui.registro;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.ispc.testace.R;
+import com.ispc.testace.ui.login.LoginActivity;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -32,6 +35,11 @@ public class RegisterActivity extends AppCompatActivity {
         // Todo (próximo sprint): conectar con RegisterViewModel y hacer el POST al backend Django
         btnRegistrarse.setOnClickListener(v -> {
             // Sin funcionalidad todavía — solo confirma que el botón responde al toque
+        });
+        TextView tvIrALogin = findViewById(R.id.tvIrALogin);
+        tvIrALogin.setOnClickListener(v -> {
+            startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
+            finish(); // opcional: cierra Registro para no acumular pantallas en la pila
         });
     }
 }
