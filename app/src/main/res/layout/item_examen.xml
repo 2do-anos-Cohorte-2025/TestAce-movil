@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:padding="12dp"
-        android:background="@color/beige_oscuro">
+        android:background="@color/beige_claro">
 
         <ImageView
             android:id="@+id/imgExamen"
@@ -67,7 +67,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:backgroundTint="@color/verde_oscuro"
+                android:backgroundTint="@color/verde_claro"
                 android:text="Ver más" />
 
         </LinearLayout>
