@@ -42,7 +42,7 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:hint="Nombre de usuario"
-        android:inputType="textEmailAddress"
+        android:inputType="textPersonName"
         android:paddingStart="16dp"
         android:paddingEnd="16dp"
         android:background="@android:drawable/editbox_background_normal"
