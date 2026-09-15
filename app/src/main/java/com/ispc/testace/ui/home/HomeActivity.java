@@ -20,6 +20,7 @@ import com.ispc.testace.R;
 import com.ispc.testace.ProfileActivity;
 import com.ispc.testace.ui.examenes.catalogo.CatalogoActivity;
 import com.ispc.testace.databinding.ActivityHomeBinding;
+import com.ispc.testace.ui.login.LoginActivity;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -55,7 +56,7 @@ public class HomeActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
 
         // Listener manual: Inicio navega adentro del NavHost, Perfil y Catálogo
-        // abren su propia Activity, e Iniciar sesión queda pendiente.
+        // abren su propia Activity.
         navigationView.setNavigationItemSelectedListener(item -> {
             int id = item.getItemId();
             boolean handled;
@@ -67,8 +68,7 @@ public class HomeActivity extends AppCompatActivity {
                 startActivity(new Intent(HomeActivity.this, CatalogoActivity.class));
                 handled = true;
             } else if (id == R.id.nav_login) {
-                // TODO: reemplazar por el Intent a la Activity de login cuando exista.
-                Toast.makeText(HomeActivity.this, "Iniciar sesión: próximamente", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(HomeActivity.this, LoginActivity.class));
                 handled = true;
             } else {
                 handled = NavigationUI.onNavDestinationSelected(item, navController);

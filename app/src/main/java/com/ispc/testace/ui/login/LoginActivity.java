@@ -8,6 +8,10 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import com.ispc.testace.R;
+import com.ispc.testace.MainActivity;
+import android.widget.TextView;
+import com.ispc.testace.ui.registro.RegisterActivity;
 public class LoginActivity extends AppCompatActivity {
 
     // Declaramos los componentes
@@ -68,6 +72,10 @@ public class LoginActivity extends AppCompatActivity {
                     ).show();
                 }
             }
+        });
+        TextView tvIrARegistro = findViewById(R.id.tvIrARegistro);
+        tvIrARegistro.setOnClickListener(v -> {
+            startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
         });
     }
 }

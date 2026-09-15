@@ -19,7 +19,7 @@
         android:src="@drawable/logo_sin_fondo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/tvIrALogin"/>
 
     <TextView
         android:id="@+id/tvTituloRegistro"
@@ -33,6 +33,19 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/ivLogo" />
+    <TextView
+        android:id="@+id/tvIrALogin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="¿Ya tenés cuenta? Iniciar sesión"
+        android:textColor="@color/verde_claro"
+        android:textStyle="bold"
+        android:clickable="true"
+        android:focusable="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tilNombre"
