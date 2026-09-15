@@ -1,7 +1,23 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
     <style name="Base.Theme.TestAceMovil" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your dark theme here. -->
-        <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+        <item name="colorPrimary">@color/verde_claro</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorPrimaryContainer">@color/verde_oscuro</item>
+        <item name="colorOnPrimaryContainer">@color/beige_claro</item>
+
+        <item name="colorSecondary">@color/rosa_claro</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <item name="colorSecondaryContainer">@color/rosa</item>
+        <item name="colorOnSecondaryContainer">@color/beige_claro</item>
+
+        <item name="android:colorBackground">@color/verde_oscuro</item>
+        <item name="colorOnBackground">@color/beige_claro</item>
+
+        <item name="colorSurface">@color/verde_oscuro</item>
+        <item name="colorOnSurface">@color/beige_claro</item>
+        <item name="colorSurfaceVariant">@color/beige_oscuro</item>
+        <item name="colorOnSurfaceVariant">@color/beige_claro</item>
+
+        <item name="colorOutline">@color/beige_oscuro</item>
     </style>
 </resources>
