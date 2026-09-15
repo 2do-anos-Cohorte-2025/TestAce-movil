@@ -7,9 +7,9 @@ Este proyecto surge como respuesta a la necesidad de contar con herramientas acc
 Estudiantes y personas en proceso de aprendizaje autodidacta
 
 ## Tecnologías utilizadas: 
-- Back: Java, graddle
-- Front: xml
-- BD: Django
+### Back: Java, Android SDK, Django y 'Gradle' (Build/Compilación)
+### Front: xml
+### BD: MySQL
 
 ## Funcionalidades
 
