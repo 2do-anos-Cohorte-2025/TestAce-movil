@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Menu;
-import android.widget.Toast;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
@@ -17,7 +16,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.ispc.testace.R;
-import com.ispc.testace.ProfileActivity;
+import com.ispc.testace.ui.perfil.ProfileActivity;
 import com.ispc.testace.ui.examenes.catalogo.CatalogoActivity;
 import com.ispc.testace.databinding.ActivityHomeBinding;
 import com.ispc.testace.ui.login.LoginActivity;

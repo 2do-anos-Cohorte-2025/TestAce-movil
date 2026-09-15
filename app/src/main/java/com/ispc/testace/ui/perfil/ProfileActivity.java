@@ -1,4 +1,4 @@
-package com.ispc.testace;
+package com.ispc.testace.ui.perfil;
 
 import android.os.Bundle;
 import android.widget.Button;
@@ -8,6 +8,7 @@ import android.widget.LinearLayout;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.tabs.TabLayout;
+import com.ispc.testace.R;
 
 public class ProfileActivity extends AppCompatActivity {
 
@@ -77,12 +78,12 @@ public class ProfileActivity extends AppCompatActivity {
         Button btnGuardar = findViewById(R.id.btnGuardar);
         Button btnEliminarCuenta = findViewById(R.id.btnEliminarCuenta);
 
-        // TODO: todavía no hay backend/base de datos, por eso no hace nada.
+        // Todavía no hay backend/base de datos, por eso no hace nada.
         btnGuardar.setOnClickListener(v -> {
             // Sin funcionalidad por el momento.
         });
 
-        // TODO: falta definir la lógica de borrado de cuenta.
+        // Falta definir la lógica de borrado de cuenta.
         btnEliminarCuenta.setOnClickListener(v -> {
             // Sin funcionalidad por el momento.
         });
