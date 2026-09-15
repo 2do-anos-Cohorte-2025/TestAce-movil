@@ -20,5 +20,13 @@
         <item>Todos</item>
         <item>Estudiante</item>
         <item>Profesor</item>
+      
     </string-array>
+    <string name="hint_nombre">Nombre</string>
+    <string name="hint_apellido">Apellido</string>
+    <string name="hint_email">Email</string>
+    <string name="hint_password">Contraseña</string>
+    <string name="hint_confirm_password">Confirmar contraseña</string>
+    <string name="title_crear_cuenta">Crear cuenta</string>
+    <string name="btn_registrarme">Registrarme</string>
 </resources>

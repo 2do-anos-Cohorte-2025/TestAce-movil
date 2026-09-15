@@ -16,10 +16,17 @@
             android:name=".ui.examenes.catalogo.CatalogoActivity"
             android:exported="false"/>
 
+        <activity 
+            android:name=".ui.registro.RegisterActivity"
+            android:exported="false" />
+      
         <activity
             android:name=".ui.examenes.intento.IntentoActivity"
             android:exported="false" />
 
+        <activity
+            android:name=".ProfileActivity"
+            android:exported="false" />
         <activity
             android:name=".MainActivity"
             android:exported="true">
@@ -29,5 +36,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+
     </application>
 </manifest>
