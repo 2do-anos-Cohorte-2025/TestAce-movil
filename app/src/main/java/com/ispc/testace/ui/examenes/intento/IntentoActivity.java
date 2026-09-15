@@ -22,6 +22,7 @@ import java.util.List;
 public class IntentoActivity extends AppCompatActivity {
     private Examen examen;
     private int indicePreguntaActual = 0;
+
     private List<Pregunta> preguntas;
     private RadioGroup rgOpciones;
     private TextView tvPreguntaActual;
@@ -51,8 +52,10 @@ public class IntentoActivity extends AppCompatActivity {
 
         btnSiguiente.setOnClickListener(v -> {
             if (indicePreguntaActual < preguntas.size() - 1) {
-                indicePreguntaActual++;
-                mostrarPreguntaActual();
+
+                    indicePreguntaActual++;
+                    mostrarPreguntaActual();
+
             } else {
                 tvExamenFinalizado.setVisibility(View.VISIBLE);
                 tvPreguntaActual.setVisibility(View.GONE);
@@ -82,6 +85,7 @@ public class IntentoActivity extends AppCompatActivity {
             for (Opcion opcion : pregunta.getOpciones()) {
                 RadioButton rb = new RadioButton(this);
                 rb.setText(opcion.getTextoOpcion());
+
                 rgOpciones.addView(rb);
             }
         } else if (pregunta.getTipo().equals("verdadero_falso")) {
@@ -93,6 +97,7 @@ public class IntentoActivity extends AppCompatActivity {
             rgOpciones.addView(rbFalso);
         }
     }
+
 
 
 }
