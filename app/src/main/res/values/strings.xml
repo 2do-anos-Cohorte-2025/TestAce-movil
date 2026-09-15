@@ -1,3 +1,44 @@
 <resources>
     <string name="app_name">Test Ace Movil</string>
+
+    <string-array name="categorias_array">
+        <item>Todas</item>
+        <item>Matemática</item>
+        <item>Historia</item>
+        <item>Lengua</item>
+        <item>Programación</item>
+    </string-array>
+
+    <string-array name="niveles_array">
+        <item>Todos</item>
+        <item>Alto</item>
+        <item>Medio</item>
+        <item>Bajo</item>
+    </string-array>
+
+    <string-array name="creador_array">
+        <item>Todos</item>
+        <item>Estudiante</item>
+        <item>Profesor</item>
+
+    </string-array>
+    <string name="hint_nombre">Nombre</string>
+    <string name="hint_apellido">Apellido</string>
+    <string name="hint_email">Email</string>
+    <string name="hint_password">Contraseña</string>
+    <string name="hint_confirm_password">Confirmar contraseña</string>
+    <string name="title_crear_cuenta">Crear cuenta</string>
+    <string name="btn_registrarme">Registrarme</string>
+    <string name="title_activity_home">HomeActivity</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Test Ace</string>
+    <string name="nav_header_subtitle">Preparate para tu próximo examen</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_home">Inicio</string>
+    <string name="menu_perfil">Perfil</string>
+    <string name="menu_catalogo">Catálogo</string>
+    <string name="menu_login">Iniciar sesión</string>
 </resources>
