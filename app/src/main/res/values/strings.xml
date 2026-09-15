@@ -1,3 +1,24 @@
 <resources>
     <string name="app_name">Test Ace Movil</string>
+
+    <string-array name="categorias_array">
+        <item>Todas</item>
+        <item>Matemática</item>
+        <item>Historia</item>
+        <item>Lengua</item>
+        <item>Programación</item>
+    </string-array>
+
+    <string-array name="niveles_array">
+        <item>Todos</item>
+        <item>Alto</item>
+        <item>Medio</item>
+        <item>Bajo</item>
+    </string-array>
+
+    <string-array name="creador_array">
+        <item>Todos</item>
+        <item>Estudiante</item>
+        <item>Profesor</item>
+    </string-array>
 </resources>
