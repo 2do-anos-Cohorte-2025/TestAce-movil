@@ -3,7 +3,7 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
-    //Colores del proyecto
+    <!-- Colores del proyecto -->
     <color name="rosa">#c4866d</color>
     <color name="rosa_claro">#C88F78</color>
     <color name="verde_beige">#AEC186</color>
