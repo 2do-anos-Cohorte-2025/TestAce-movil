@@ -3,6 +3,8 @@ package com.ispc.testace.ui.examenes.catalogo;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.content.Intent;
+
 
 import com.ispc.testace.R;
 import com.google.android.material.chip.Chip;
@@ -60,12 +62,16 @@ public class CatalogoActivity extends AppCompatActivity {
 
         Button btnVerMas = findViewById(R.id.btnVerMas);
         btnVerMas.setOnClickListener(v -> {
-            // TODO: Cuando exista VistaPreviaActivity, descomentar estas líneas:
-            // Intent intent = new Intent(CatalogoActivity.this, VistaPreviaActivity.class);
-            // startActivity(intent);
+            Intent intent = new Intent(CatalogoActivity.this, com.ispc.testace.ui.examenes.VistaPreviaExamenes.class);
 
-            Toast.makeText(CatalogoActivity.this, "Ver más (pantalla en construcción)", Toast.LENGTH_SHORT).show();
+            intent.putExtra("EXAMEN_ID", "1");
+            intent.putExtra("EXAMEN_NOMBRE", "Exámen evaluativo");
+            intent.putExtra("EXAMEN_DESCRIPCION", "Este examen consta de 10 preguntas de opción múltiple. Tienes un límite de tiempo de 30 minutos. Asegúrate de revisar tus respuestas antes de enviar.");
+
+            startActivity(intent);
         });
+
+
 
     }
 }
