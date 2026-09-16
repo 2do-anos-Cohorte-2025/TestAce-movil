@@ -3,6 +3,7 @@ package com.ispc.testace.ui.examenes.intento;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -16,6 +17,7 @@ import com.ispc.testace.data.model.Examen;
 import com.ispc.testace.data.model.ExamenEjemplo;
 import com.ispc.testace.data.model.Opcion;
 import com.ispc.testace.data.model.Pregunta;
+import com.ispc.testace.ui.home.HomeActivity;
 
 import java.util.List;
 
@@ -29,6 +31,7 @@ public class IntentoActivity extends AppCompatActivity {
     private Button btnSiguiente;
     private Button btnAnterior;
     private TextView tvExamenFinalizado;
+    private Button btnCancelar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +47,7 @@ public class IntentoActivity extends AppCompatActivity {
         rgOpciones = findViewById(R.id.rgOpciones);
         btnSiguiente = findViewById(R.id.btnSiguiente);
         btnAnterior= findViewById(R.id.btnAnterior);
+        btnCancelar= findViewById(R.id.btnCancelar);
         tvExamenFinalizado=findViewById(R.id.tvExamenFinalizado);
 
 
@@ -70,6 +74,13 @@ public class IntentoActivity extends AppCompatActivity {
                 indicePreguntaActual--;
                 mostrarPreguntaActual();
             }
+        });
+        btnCancelar.setOnClickListener(v -> {
+            Intent intent= new Intent(
+                    IntentoActivity.this,
+                    HomeActivity.class
+            );
+            startActivity(intent);
         });
     }
 
