@@ -31,6 +31,9 @@ public class LoginActivity extends AppCompatActivity {
         etPassword = findViewById(R.id.etPassword);
         btnLogin = findViewById(R.id.btnLogin);
 
+        Button btnOmitirLogin = findViewById(R.id.btnOmitirLogin);
+
+
         // 2. Escuchar el evento de clic del botón
         btnLogin.setOnClickListener(new View.OnClickListener() {
 
@@ -78,6 +81,12 @@ public class LoginActivity extends AppCompatActivity {
         TextView tvIrARegistro = findViewById(R.id.tvIrARegistro);
         tvIrARegistro.setOnClickListener(v -> {
             startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
+        });
+
+        btnOmitirLogin.setOnClickListener(v -> {
+            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+            startActivity(intent);
+            finish();
         });
     }
 }
