@@ -9,6 +9,7 @@
     <color name="verde_beige">#AEC186</color>
     <color name="verde_claro">#6a784d</color>
     <color name="verde_oscuro">#202808</color>
+    <color name="fondo">#E1D0B5</color>
     <color name="beige_claro">#e7cba2</color>
     <color name="beige_oscuro">#a79375</color>
 </resources>
