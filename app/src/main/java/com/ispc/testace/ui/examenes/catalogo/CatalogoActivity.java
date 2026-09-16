@@ -9,12 +9,20 @@ import com.google.android.material.chip.Chip;
 import android.widget.PopupMenu;
 import android.widget.Button;
 import android.widget.Toast;
+import androidx.appcompat.widget.Toolbar;
 public class CatalogoActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_catalogo);
+
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
 
         Chip chipCategoria = findViewById(R.id.chipCategoria);
         chipCategoria.setOnClickListener(v -> {
@@ -67,5 +75,10 @@ public class CatalogoActivity extends AppCompatActivity {
             Toast.makeText(CatalogoActivity.this, "Ver más (pantalla en construcción)", Toast.LENGTH_SHORT).show();
         });
 
+    }
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }
 }
