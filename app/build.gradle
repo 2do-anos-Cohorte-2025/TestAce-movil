@@ -43,6 +43,15 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
     implementation 'androidx.cardview:cardview:1.0.0'
+
+    // Dependencias necesarias para añadir retrofill y consumir la base de datos
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:4.9.3'
+
+    // Dependencia para leer el .env
+    implementation 'io.github.cdimascio:dotenv-java:3.0.0'
+
 }
 
 configurations.all {
