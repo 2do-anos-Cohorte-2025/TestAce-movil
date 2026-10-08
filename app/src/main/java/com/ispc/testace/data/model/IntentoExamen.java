@@ -4,20 +4,21 @@ import java.util.Date;
 
 public class IntentoExamen {
     private int id;
-    private Examen examen;
+    private int examen;
     private Integer usuario; //Se debe remplazar por la clase Usuario
     private Date fechaInicio;
     private Date fechaFin;
     private Double resultado;
 
-    public IntentoExamen(int id, Examen examen, Integer usuario) {
-        this.id = id;
+    public IntentoExamen(int examen, Integer usuario) {
         this.examen = examen;
         this.usuario = usuario;
-        this.fechaInicio = new Date();
+        /*this.fechaInicio = new Date();
         this.fechaFin = null;
-        this.resultado = null;
+        this.resultado = null;*/
     }
+
+
 
     public void finalizarIntento(double resultado) {
         this.fechaFin = new Date();
@@ -32,10 +33,10 @@ public class IntentoExamen {
         this.id = id;
     }
 
-    public Examen getExamen() {
+    public int getExamen() {
         return examen;
     }
-    public void setExamen(Examen examen) {
+    public void setExamen(int examen) {
         this.examen = examen;
     }
 

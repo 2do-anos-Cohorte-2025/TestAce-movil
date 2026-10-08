@@ -2,18 +2,22 @@ package com.ispc.testace.data.model;
 
 public class RespuestaUsuario {
     private int id;
-    private IntentoExamen intento;
-    private Pregunta pregunta;
-    private Opcion opcionSeleccionada;
+    private int intento;
+    private int pregunta;
+    private Integer opcionSeleccionada;
     private String respuestaTexto;
 
-    public RespuestaUsuario(int id, IntentoExamen intento, Pregunta pregunta) {
-        this.id = id;
+    public RespuestaUsuario(int intento,int pregunta, Integer opcionSeleccionada, String respuestaTexto ) {
         this.intento = intento;
         this.pregunta = pregunta;
+        this.opcionSeleccionada = opcionSeleccionada;
+        this.respuestaTexto =respuestaTexto;
     }
 
-    public void registrarRespuesta(Opcion opcion) {
+
+
+    // Borrar por inutilidad
+    public void registrarRespuesta(int opcion) {
         this.opcionSeleccionada = opcion;
         this.respuestaTexto = null;
     }
@@ -31,27 +35,27 @@ public class RespuestaUsuario {
         this.id = id;
     }
 
-    public IntentoExamen getIntento() {
+    public int getIntento() {
         return intento;
     }
 
-    public void setIntento(IntentoExamen intento) {
+    public void setIntento(int intento) {
         this.intento = intento;
     }
 
-    public Opcion getOpcionSeleccionada() {
+    public Integer getOpcionSeleccionada() {
         return opcionSeleccionada;
     }
 
-    public void setOpcionSeleccionada(Opcion opcionSeleccionada) {
+    public void setOpcionSeleccionada(Integer opcionSeleccionada) {
         this.opcionSeleccionada = opcionSeleccionada;
     }
 
-    public Pregunta getPregunta() {
+    public int getPregunta() {
         return pregunta;
     }
 
-    public void setPregunta(Pregunta pregunta) {
+    public void setPregunta(int pregunta) {
         this.pregunta = pregunta;
     }
 

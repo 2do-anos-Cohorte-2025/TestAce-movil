@@ -18,7 +18,6 @@ public class IntentoExamenRepository {
     }
 
 
-
     public void updateIntentoExamen(int id, IntentoExamen intentoExamen, Callback<IntentoExamen> callback){
         intentoExamenService.updateIntentoExamen(id, intentoExamen,callback);
     }
