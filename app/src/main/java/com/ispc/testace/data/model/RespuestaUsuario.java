@@ -7,11 +7,13 @@ public class RespuestaUsuario {
     private Integer opcionSeleccionada;
     private String respuestaTexto;
 
-    public RespuestaUsuario(int intento,int pregunta, Integer opcionSeleccionada, String respuestaTexto ) {
+    public RespuestaUsuario() {}
+
+    public RespuestaUsuario(int intento, int pregunta, Integer opcionSeleccionada, String respuestaTexto) {
         this.intento = intento;
         this.pregunta = pregunta;
         this.opcionSeleccionada = opcionSeleccionada;
-        this.respuestaTexto =respuestaTexto;
+        this.respuestaTexto = respuestaTexto;
     }
 
 
@@ -28,42 +30,19 @@ public class RespuestaUsuario {
     }
 
 
-    public int getId() {
-        return id;
-    }
-    public void setId(int id) {
-        this.id = id;
-    }
+    public int getId() { return id; }
+    public void setId(int id) { this.id = id; }
 
-    public int getIntento() {
-        return intento;
-    }
+    public int getIntento() { return intento; }
+    public void setIntento(int intento) { this.intento = intento; }
 
-    public void setIntento(int intento) {
-        this.intento = intento;
-    }
+    public int getPregunta() { return pregunta; }
+    public void setPregunta(int pregunta) { this.pregunta = pregunta; }
 
-    public Integer getOpcionSeleccionada() {
-        return opcionSeleccionada;
-    }
+    public Integer getOpcionSeleccionada() { return opcionSeleccionada; }
+    public void setOpcionSeleccionada(Integer opcionSeleccionada) { this.opcionSeleccionada = opcionSeleccionada; }
 
-    public void setOpcionSeleccionada(Integer opcionSeleccionada) {
-        this.opcionSeleccionada = opcionSeleccionada;
-    }
-
-    public int getPregunta() {
-        return pregunta;
-    }
-
-    public void setPregunta(int pregunta) {
-        this.pregunta = pregunta;
-    }
-
-    public String getRespuestaTexto() {
-        return respuestaTexto;
-    }
-    public void setRespuestaTexto(String respuestaTexto){
-        this.respuestaTexto=respuestaTexto;
-    }
+    public String getRespuestaTexto() { return respuestaTexto; }
+    public void setRespuestaTexto(String respuestaTexto) { this.respuestaTexto = respuestaTexto; }
 
 }

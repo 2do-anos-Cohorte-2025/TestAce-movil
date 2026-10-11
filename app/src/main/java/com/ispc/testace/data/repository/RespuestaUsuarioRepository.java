@@ -11,8 +11,8 @@ public class RespuestaUsuarioRepository {
 
     }
 
-    public void createRespuestaUsuario(RespuestaUsuario respuesta, Callback<RespuestaUsuario> callback){
-        respuestaUsuarioService.createrespuestaUsuario(respuesta,callback);
+    public void createRespuestaUsuario(RespuestaUsuario respuesta, Callback<RespuestaUsuario> callback) {
+        respuestaUsuarioService.createRespuestaUsuario(respuesta, callback);
     }
 }
 

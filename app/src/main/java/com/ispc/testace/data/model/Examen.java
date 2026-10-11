@@ -13,15 +13,8 @@ public class Examen {
     private String imagenExamen;
     private List<Pregunta> preguntas;
 
-    public Examen(int id, String titulo, String descripcion, String categoria, String nivel, int tiempoLimite, String imagenExamen) {
-        this.id = id;
-        this.titulo = titulo;
-        this.descripcion = descripcion;
-        this.categoria = categoria;
-        this.nivel = nivel;
-        this.tiempoLimite = tiempoLimite;
-        this.imagenExamen = imagenExamen;
-        this.preguntas = new ArrayList<>();
+    public Examen() {
+
     }
 
     public void agregarPregunta(Pregunta pregunta) {

@@ -43,11 +43,16 @@ public class VistaPreviaExamenes extends AppCompatActivity {
         }
 
         btnComenzar.setOnClickListener(v -> {
-            Intent intent = new Intent(VistaPreviaExamenes.this, IntentoActivity.class);
+           /* Intent intent = new Intent(VistaPreviaExamenes.this, IntentoActivity.class);*/
 
-            intent.putExtra("EXAMEN_ID", examenId);
+           /* intent.putExtra("EXAMEN_ID", examenId);*/
+           /* startActivity(intent);
+            finish();*/
+            Integer usuarioId=null;
+            Intent intent = new Intent(VistaPreviaExamenes.this, IntentoActivity.class);
+            intent.putExtra("examen_id", 2); // ID del examen seleccionado
+            intent.putExtra("usuario_id", usuarioId); // ID del usuario (puede ser null si no está logueado)
             startActivity(intent);
-            finish();
         });
         btnFlechitaVolver.setOnClickListener(v -> {
             onBackPressed();

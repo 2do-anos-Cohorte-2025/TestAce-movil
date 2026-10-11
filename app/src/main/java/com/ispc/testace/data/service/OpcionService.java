@@ -16,7 +16,7 @@ public class OpcionService {
     public OpcionService(){
         this.apiService= ApiClient.getApiService();
     }
-    public void getOpcionesByPregunta(int preguntaId, Callback<List<Opcion>> callback){
+    public void getOpcionesByPregunta(int preguntaId, Callback<List<Opcion>> callback) {
         apiService.getOpcionesByPregunta(preguntaId).enqueue(callback);
     }
 

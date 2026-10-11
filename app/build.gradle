@@ -49,8 +49,12 @@ dependencies {
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
     implementation 'com.squareup.okhttp3:logging-interceptor:4.9.3'
 
-    // Dependencia para leer el .env
-    implementation 'io.github.cdimascio:dotenv-java:3.0.0'
+    // Dependencia para leer el .env Borrado por ahora, muchos errores
+    /*implementation 'io.github.cdimascio:dotenv-java:3.0.0'*/
+
+    // Dependencia glide para poder visualizar las imagenes de la bd
+    implementation 'com.github.bumptech.glide:glide:4.16.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.16.0'
 
 }
 
