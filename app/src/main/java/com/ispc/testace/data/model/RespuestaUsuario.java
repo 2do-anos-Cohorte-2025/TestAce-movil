@@ -2,18 +2,24 @@ package com.ispc.testace.data.model;
 
 public class RespuestaUsuario {
     private int id;
-    private IntentoExamen intento;
-    private Pregunta pregunta;
-    private Opcion opcionSeleccionada;
+    private int intento;
+    private int pregunta;
+    private Integer opcionSeleccionada;
     private String respuestaTexto;
 
-    public RespuestaUsuario(int id, IntentoExamen intento, Pregunta pregunta) {
-        this.id = id;
+    public RespuestaUsuario() {}
+
+    public RespuestaUsuario(int intento, int pregunta, Integer opcionSeleccionada, String respuestaTexto) {
         this.intento = intento;
         this.pregunta = pregunta;
+        this.opcionSeleccionada = opcionSeleccionada;
+        this.respuestaTexto = respuestaTexto;
     }
 
-    public void registrarRespuesta(Opcion opcion) {
+
+
+    // Borrar por inutilidad
+    public void registrarRespuesta(int opcion) {
         this.opcionSeleccionada = opcion;
         this.respuestaTexto = null;
     }
@@ -24,42 +30,19 @@ public class RespuestaUsuario {
     }
 
 
-    public int getId() {
-        return id;
-    }
-    public void setId(int id) {
-        this.id = id;
-    }
+    public int getId() { return id; }
+    public void setId(int id) { this.id = id; }
 
-    public IntentoExamen getIntento() {
-        return intento;
-    }
+    public int getIntento() { return intento; }
+    public void setIntento(int intento) { this.intento = intento; }
 
-    public void setIntento(IntentoExamen intento) {
-        this.intento = intento;
-    }
+    public int getPregunta() { return pregunta; }
+    public void setPregunta(int pregunta) { this.pregunta = pregunta; }
 
-    public Opcion getOpcionSeleccionada() {
-        return opcionSeleccionada;
-    }
+    public Integer getOpcionSeleccionada() { return opcionSeleccionada; }
+    public void setOpcionSeleccionada(Integer opcionSeleccionada) { this.opcionSeleccionada = opcionSeleccionada; }
 
-    public void setOpcionSeleccionada(Opcion opcionSeleccionada) {
-        this.opcionSeleccionada = opcionSeleccionada;
-    }
-
-    public Pregunta getPregunta() {
-        return pregunta;
-    }
-
-    public void setPregunta(Pregunta pregunta) {
-        this.pregunta = pregunta;
-    }
-
-    public String getRespuestaTexto() {
-        return respuestaTexto;
-    }
-    public void setRespuestaTexto(String respuestaTexto){
-        this.respuestaTexto=respuestaTexto;
-    }
+    public String getRespuestaTexto() { return respuestaTexto; }
+    public void setRespuestaTexto(String respuestaTexto) { this.respuestaTexto = respuestaTexto; }
 
 }

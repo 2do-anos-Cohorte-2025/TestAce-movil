@@ -41,4 +41,8 @@
     <string name="menu_perfil">Perfil</string>
     <string name="menu_catalogo">Catálogo</string>
     <string name="menu_login">Iniciar sesión</string>
+
+    <string name="vista_previa_examen">Vista previa del examen</string>
+    <string name="descripcion_vista_previa">Aquí se mostrará la información del examen seleccionado.</string>
+    <string name="comenzar_examen">Comenzar examen</string>
 </resources>
