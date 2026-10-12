@@ -7,13 +7,15 @@ import com.ispc.testace.data.model.Opcion;
 import com.ispc.testace.data.model.IntentoExamen;
 import com.ispc.testace.data.model.RespuestaUsuario;
 
-
+import com.ispc.testace.data.model.RegistroRequest;
+import com.ispc.testace.data.model.RegistroResponse;
 
 import java.util.List;
 
 import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.*;
+
 public interface  ApiService {
     @GET("examenes/")
     Call<List<Examen>> getExamenes();
@@ -21,6 +23,8 @@ public interface  ApiService {
     @POST("examenes/")
     Call<Examen> createExamen(@Body Examen examen);
 
+    @POST("auth/registro/")
+    Call<RegistroResponse> registro(@Body RegistroRequest body);
 
     @GET("intentos/")
     Call<List<IntentoExamen>> getIntentosExamen(@Query("examen") int examenId);
