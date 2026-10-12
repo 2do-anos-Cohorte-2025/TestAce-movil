@@ -11,7 +11,7 @@ public class ApiClient {
         if (retrofit == null) {
 
             // String baseUrl = "http://10.0.2.2:8000/"; // Endpoint para los emuladores
-            String baseUrl = "http://192.168.1.00:8000/api/"; // Endpoint para los dispositivo físico
+            String baseUrl = "http://192.168.1.61:8000/api/"; // Endpoint para los dispositivo físico
 
             OkHttpClient client = new OkHttpClient.Builder().build();
 

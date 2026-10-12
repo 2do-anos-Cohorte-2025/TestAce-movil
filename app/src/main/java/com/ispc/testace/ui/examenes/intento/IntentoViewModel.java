@@ -19,7 +19,10 @@ import com.ispc.testace.data.repository.OpcionRepository;
 import com.ispc.testace.data.repository.PreguntaRepository;
 import com.ispc.testace.data.repository.RespuestaUsuarioRepository;
 
+import java.text.DateFormat;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -37,25 +40,31 @@ public class IntentoViewModel extends ViewModel{
     private final PreguntaRepository preguntaRepository;
     private final RespuestaUsuarioRepository respuestaUsuarioRepository;
     private final OpcionRepository opcionRepository;
-
     protected long tiempoRestanteEnMilis;
 
+
     //Datos observables
-    private final MutableLiveData<Pregunta> preguntaActualLiveData = new MutableLiveData<>();
-    private final MutableLiveData<List<Opcion>> opcionesLiveData = new MutableLiveData<>();
     private final MutableLiveData<IntentoExamen> intentoExamenLiveData = new MutableLiveData<>();
+    private final MutableLiveData<List<Pregunta>> preguntasLiveData = new MutableLiveData<>(new ArrayList<>()); // Lista vacía inicial
+    private final MutableLiveData<Pregunta> preguntaActualLiveData = new MutableLiveData<>();
+    private final MutableLiveData<Integer> preguntaActualIndex = new MutableLiveData<>(0);
+    private final MutableLiveData<List<Opcion>> opcionesLiveData = new MutableLiveData<>();
+
     private final MutableLiveData<Boolean> isLoading = new MutableLiveData<>(false);
     private final MutableLiveData<String> errorMessage = new MutableLiveData<>();
-
     private final MutableLiveData<Map<Integer, Integer>> respuestasSeleccionadas = new MutableLiveData<>(new HashMap<>());
+    private final MutableLiveData<Map<Integer, String>> respuestasTexto = new MutableLiveData<>(new HashMap<>());
+    private final MutableLiveData<Double> resultadoLiveData = new MutableLiveData<>();
+    private final MutableLiveData<Float> tiempoTranscurridoLiveData = new MutableLiveData<>();
 
-    private final MutableLiveData<Integer> preguntaIndex = new MutableLiveData<>(0); // Valor inicial 0
-    private final MutableLiveData<List<Pregunta>> preguntasLiveData = new MutableLiveData<>(new ArrayList<>()); // Lista vacía inicial
+
+
+
     // Estado actual del examen
     private IntentoExamen intentoExamen;
     private List<Pregunta> preguntas =new ArrayList<>();
-    private List<RespuestaUsuario> respuestas= new ArrayList<>();
-    private List<Opcion> opciones= new ArrayList<>();
+    /*private List<RespuestaUsuario> respuestas= new ArrayList<>();
+    private List<Opcion> opciones= new ArrayList<>();*/
 
     public IntentoViewModel() {
         this.intentoExamenRepository = new IntentoExamenRepository();
@@ -80,13 +89,15 @@ public class IntentoViewModel extends ViewModel{
     public LiveData<Boolean> isLoading() {
         return isLoading;
     }
-
     public LiveData<String> getErrorMessage() {
         return errorMessage;
     }
-    public LiveData<Integer> getPreguntaIndex() {
-        return preguntaIndex;
+    public LiveData<Integer> getPreguntaActualIndex() {
+        return preguntaActualIndex;
     }
+
+
+
 
     public void iniciarTiempoExamen(int duracionEnMinutos) {
         tiempoRestanteEnMilis = duracionEnMinutos * 60 * 1000; // Convertir minutos a milisegundos
@@ -95,6 +106,16 @@ public class IntentoViewModel extends ViewModel{
     public long getTiempoRestanteEnMilis() {
         return tiempoRestanteEnMilis;
     }
+
+    public LiveData<Double> getResultadoLiveData() {
+        return resultadoLiveData;
+    }
+
+    public LiveData<Float> getTiempoTranscurridoLiveData() {
+        return tiempoTranscurridoLiveData;
+    }
+
+
 
     // metodos del viewmodel, son implementados en la activity
 
@@ -134,6 +155,8 @@ public class IntentoViewModel extends ViewModel{
 
     private void cargarPreguntas(int examenId) {
         isLoading.setValue(true);
+        opcionesLiveData.setValue(new ArrayList<>());
+        isLoading.setValue(true);
         preguntaRepository.getPreguntasByExamen(examenId, new Callback<List<Pregunta>>() {
             @Override
             public void onResponse(Call<List<Pregunta>> call, Response<List<Pregunta>> response) {
@@ -142,10 +165,11 @@ public class IntentoViewModel extends ViewModel{
                     preguntas = response.body();
                     if (preguntas != null && !preguntas.isEmpty()) {
                         preguntasLiveData.setValue(preguntas);
-                        preguntaIndex.setValue(0);
+                        preguntaActualIndex.setValue(0);
                         preguntaActualLiveData.setValue(preguntas.get(0));
                         cargarOpciones(preguntas.get(0).getId());
                     } else {
+                        preguntasLiveData.setValue(new ArrayList<>());
                         errorMessage.setValue("No hay preguntas disponibles");
                     }
                 } else {
@@ -155,14 +179,43 @@ public class IntentoViewModel extends ViewModel{
 
             @Override
             public void onFailure(Call<List<Pregunta>> call, Throwable t) {
+                preguntasLiveData.setValue(new ArrayList<>());
                 isLoading.setValue(false);
                 errorMessage.setValue("Error de conexión: " + t.getMessage());
             }
         });
     }
 
+    public void siguientePregunta(){
+        if (preguntaActualIndex.getValue() == null || preguntas.isEmpty()) {
+            return;
+        }
+        int currentIndex = preguntaActualIndex.getValue();
+        if(currentIndex < preguntas.size()-1){
+            int newIndex = currentIndex + 1;
+            preguntaActualIndex.setValue(newIndex);
+            preguntaActualLiveData.setValue(preguntas.get(newIndex));
+            cargarOpciones(preguntas.get(newIndex).getId());
+
+        }
+    }
+
+    public void preguntaAnterior(){
+        if (preguntaActualIndex.getValue() == null || preguntas.isEmpty()) {
+            return;
+        }
+        int currentIndex = preguntaActualIndex.getValue();
+        if(currentIndex > 0){
+            int newIndex = currentIndex - 1;
+            preguntaActualIndex.setValue(newIndex);
+            preguntaActualLiveData.setValue(preguntas.get(newIndex));
+            cargarOpciones(preguntas.get(newIndex).getId());
+        }
+    }
+
     public void guardarSeleccionOpcion(int preguntaId, int opcionId) {
         Map<Integer, Integer> respuestas = respuestasSeleccionadas.getValue();
+
         if (respuestas == null) {
             respuestas = new HashMap<>();
         }
@@ -186,12 +239,45 @@ public class IntentoViewModel extends ViewModel{
     public boolean hayOpcionSeleccionada(int preguntaId) {
         Map<Integer, Integer> respuestas = respuestasSeleccionadas.getValue();
         return respuestas != null && respuestas.containsKey(preguntaId);
-    }
 
+    }
 
     public Integer getOpcionSeleccionada(int preguntaId) {
         Map<Integer, Integer> respuestas = respuestasSeleccionadas.getValue();
         return respuestas != null ? respuestas.get(preguntaId) : null;
+    }
+    public void guardarRespuestaTexto(int preguntaId, String texto) {
+        Map<Integer, String> respuestas = respuestasTexto.getValue();
+
+        if (respuestas == null) {
+            respuestas = new HashMap<>();
+        }
+
+        respuestas.put(preguntaId, texto);
+        respuestasTexto.setValue(respuestas);
+    }
+
+    public String getRespuestaTexto(int preguntaId) {
+        Map<Integer, String> respuestas = respuestasTexto.getValue();
+        return respuestas != null ? respuestas.get(preguntaId) : null;
+    }
+
+    public boolean hayRespuestaTexto(int preguntaId) {
+        String respuesta = getRespuestaTexto(preguntaId);
+        return respuesta != null && !respuesta.trim().isEmpty();
+    }
+
+   // Prohibe la falta de una respuesta, debe ser seleccionada o escrita
+    public boolean hayRespuesta(int preguntaId, String tipo) {
+        if ("opcion_multiple".equals(tipo) || "verdadero_falso".equals(tipo)) {
+            return hayOpcionSeleccionada(preguntaId);
+        }
+
+        if ("texto".equals(tipo) || "numerico".equals(tipo)) {
+            return hayRespuestaTexto(preguntaId);
+        }
+
+        return false;
     }
 
     private void cargarOpciones(int preguntaId) {
@@ -200,8 +286,9 @@ public class IntentoViewModel extends ViewModel{
             @Override
             public void onResponse(Call<List<Opcion>> call, Response<List<Opcion>> response) {
                 isLoading.setValue(false);
-                if (response.isSuccessful()) {
+                if (response.isSuccessful()  && response.body() != null) {
                     List<Opcion> opciones = response.body();
+                    opcionesLiveData.setValue(response.body());
                     if (opciones != null) {
                         // Se obtiene la opcion que se había elegido
                         Integer opcionSeleccionadaId = getOpcionSeleccionada(preguntaId);
@@ -216,6 +303,7 @@ public class IntentoViewModel extends ViewModel{
                         opcionesLiveData.setValue(opciones);
                     }
                 } else {
+                    opcionesLiveData.setValue(new ArrayList<>());
                     errorMessage.setValue("Error al cargar opciones: " + response.code());
                 }
             }
@@ -229,32 +317,7 @@ public class IntentoViewModel extends ViewModel{
     }
 
 
-    public void siguientePregunta(){
-        if (preguntaIndex.getValue() == null || preguntas.isEmpty()) {
-            return;
-        }
-        int currentIndex = preguntaIndex.getValue();
-        if(currentIndex < preguntas.size()-1){
-            preguntaIndex.setValue(currentIndex + 1);
-            preguntaActualLiveData.setValue(preguntas.get(currentIndex+1));
-            cargarOpciones(preguntas.get(currentIndex + 1).getId());
-
-        }
-    }
-
-    public void preguntaAnterior(){
-        if (preguntaIndex.getValue() == null || preguntas.isEmpty()) {
-            return;
-        }
-        int currentIndex = preguntaIndex.getValue();
-        if(currentIndex > 0){
-            preguntaIndex.setValue(currentIndex - 1);
-            preguntaActualLiveData.setValue(preguntas.get(currentIndex - 1));
-            cargarOpciones(preguntas.get(currentIndex - 1).getId());
-        }
-    }
-
-    public void guardarRespuesta(int preguntaId, int opcionId, String respuestaTexto) {
+    public void guardarRespuesta(int preguntaId, Integer opcionId, String respuestaTexto) {
         if (intentoExamen == null) {
             errorMessage.setValue("No se ha inicializado el intento");
             return;
@@ -298,34 +361,49 @@ public class IntentoViewModel extends ViewModel{
             return;
         }
 
-        intentoExamen.setFechaFin(new Date());
 
-        intentoExamenRepository.updateIntentoExamen(intentoExamen, new Callback<IntentoExamen>() {
+        intentoExamen.setFechaFin(new Date());
+        Date fechaInicio = intentoExamen.getFechaInicio();
+        Date fechaFin = new Date();
+
+        if (fechaInicio != null) {
+
+            float minutos = (fechaFin.getTime() - fechaInicio.getTime())
+                    / 60000f;
+            float minutosRedondeados = Math.round(minutos * 100) / 100f;
+            tiempoTranscurridoLiveData.setValue(minutosRedondeados);
+        }
+
+        intentoExamenRepository.updateIntentoExamen(intentoExamen,new Callback<IntentoExamen>() {
             @Override
             public void onResponse(Call<IntentoExamen> call, Response<IntentoExamen> response) {
-                if (response.isSuccessful()) {
+
+                if (response.isSuccessful() && response.body() != null) {
                     intentoExamen = response.body();
                     intentoExamenLiveData.setValue(intentoExamen);
-                    Log.d("IntentoViewModel", "Examen finalizado correctamente");
-                } else {
-                    try {
-                        String errorBody = response.errorBody().string();
-                        Log.e("IntentoViewModel", "Error al finalizar el examen: " + errorBody);
-                        errorMessage.setValue("Error al finalizar el examen: " + errorBody);
-                    } catch (Exception e) {
-                        Log.e("IntentoViewModel", "Error al leer el cuerpo de la respuesta", e);
-                        errorMessage.setValue("Error al finalizar el examen");
+
+                    Double resultado = intentoExamen.getResultado();
+                    Float tiempo = intentoExamen.getTiempoTranscurrido();
+
+                    resultadoLiveData.setValue(resultado);
+                    tiempoTranscurridoLiveData.setValue(tiempo);
+
+                    Log.d("IntentoViewModel", "Resultado: " + resultado);
+                    Log.d("IntentoViewModel", "Tiempo: " + tiempo);
+                        } else {
+                            errorMessage.setValue(
+                                    "Error al finalizar el examen: " + response.code()
+                            );
+                        }
+                    }
+                @Override
+                public void onFailure(Call<IntentoExamen> call, Throwable t) {
+                        errorMessage.setValue("Error de conexión: " + t.getMessage());
                     }
                 }
-            }
-
-            @Override
-            public void onFailure(Call<IntentoExamen> call, Throwable t) {
-                Log.e("IntentoViewModel", "Error de conexión al finalizar el examen: " + t.getMessage());
-                errorMessage.setValue("Error de conexión: " + t.getMessage());
-            }
-        });
+        );
     }
+
 
     public void cancelarExamen(){
         if(intentoExamen == null){

@@ -15,7 +15,7 @@
             android:id="@+id/textViewNombreExamen"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="#100D0A"
+            android:textColor="#615951"
             android:textSize="20sp"
             android:textStyle="bold" />
 
@@ -24,50 +24,26 @@
             android:id="@+id/textViewTiempoRestante"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:textColor="@android:color/holo_red_dark" />
+            android:textColor="#D81818"
+            android:textSize="20sp" />
 
-        <!-- Pregunta actual -->
-        <TextView
-            android:id="@+id/textViewPreguntaActual"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:textSize="18sp" />
-
-        <!-- Imagen de la pregunta (opcional) -->
-        <ImageView
-            android:id="@+id/imageViewPregunta"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:layout_marginTop="8dp"
-            android:scaleType="centerCrop"
-            android:visibility="gone" />
-
-        <!-- Contenedor para opciones o campo de texto -->
-       <!-- <LinearLayout
-            android:id="@+id/containerOpciones"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:orientation="vertical" >-->
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerViewOpciones"
+            android:id="@+id/recyclerViewPreguntas"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp" />
-       <!-- </LinearLayout>-->
+            android:layout_marginTop="16dp"
+            android:nestedScrollingEnabled="false"/>
 
         <!-- Campo para respuesta de texto/número -->
-        <EditText
+        <!--<EditText
             android:id="@+id/editTextRespuestaTexto"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:hint="Escribe tu respuesta aquí..."
             android:inputType="text"
-            android:visibility="gone" />
+            android:visibility="gone" />-->
 
         <!-- Botones de navegación -->
         <LinearLayout
