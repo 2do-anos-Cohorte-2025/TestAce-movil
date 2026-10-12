@@ -23,7 +23,6 @@ public class IntentoExamenService {
     }
 
 
-
     public void getIntentosExamen(int examenId, Callback<List<IntentoExamen>> callback) {
         apiService.getIntentosExamen(examenId).enqueue(callback);
     }
