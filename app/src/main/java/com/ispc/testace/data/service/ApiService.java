@@ -6,8 +6,8 @@ import com.ispc.testace.data.model.Pregunta;
 import com.ispc.testace.data.model.Opcion;
 import com.ispc.testace.data.model.IntentoExamen;
 import com.ispc.testace.data.model.RespuestaUsuario;
-
-
+import com.ispc.testace.data.model.LoginRequest;
+import com.ispc.testace.data.model.AuthResponse;
 
 import java.util.List;
 
@@ -45,5 +45,6 @@ public interface  ApiService {
     @DELETE("intentos/{id}/")
     Call<IntentoExamen> deleteIntentoExamen(@Path("id") int intentoExamenId);
 
-
+    @POST("auth/login/")
+    Call<AuthResponse> login(@Body LoginRequest request);
 }
