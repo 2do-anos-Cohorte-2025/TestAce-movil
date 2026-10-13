@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/beige_claro"
+    android:padding="24dp"
+    tools:context=".ui.contacto.ContactoActivity">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Contactanos"
+        android:textColor="@color/verde_oscuro"
+        android:textStyle="bold"
+        android:textSize="24sp"
+        android:layout_marginBottom="24dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Nombre"
+        android:textColor="@color/verde_oscuro"
+        android:textStyle="bold"
+        android:textSize="14sp"
+        android:layout_marginBottom="4dp" />
+
+    <EditText
+        android:id="@+id/edtNombreContacto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:hint="Nombre completo"
+        android:padding="13dp"
+        android:background="@android:drawable/editbox_background_normal"
+        android:textColor="@color/verde_claro"
+        android:layout_marginBottom="16dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Email"
+        android:textColor="@color/verde_oscuro"
+        android:textStyle="bold"
+        android:textSize="14sp"
+        android:layout_marginBottom="4dp" />
+
+    <EditText
+        android:id="@+id/edtEmailContacto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textEmailAddress"
+        android:hint="tu@email.com"
+        android:padding="13dp"
+        android:background="@android:drawable/editbox_background_normal"
+        android:textColor="@color/verde_claro"
+        android:layout_marginBottom="16dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Asunto"
+        android:textColor="@color/verde_oscuro"
+        android:textStyle="bold"
+        android:textSize="14sp"
+        android:layout_marginBottom="4dp" />
+
+    <EditText
+        android:id="@+id/edtAsuntoContacto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="text"
+        android:hint="Asunto"
+        android:padding="13dp"
+        android:background="@android:drawable/editbox_background_normal"
+        android:textColor="@color/verde_claro"
+        android:layout_marginBottom="16dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Mensaje"
+        android:textColor="@color/verde_oscuro"
+        android:textStyle="bold"
+        android:textSize="14sp"
+        android:layout_marginBottom="4dp" />
+
+    <EditText
+        android:id="@+id/edtMensajeContacto"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:inputType="textMultiLine"
+        android:hint="Escribí tu mensaje"
+        android:gravity="top|start"
+        android:padding="13dp"
+        android:background="@android:drawable/editbox_background_normal"
+        android:textColor="@color/verde_claro"
+        android:layout_marginBottom="24dp" />
+
+    <Button
+        android:id="@+id/btnEnviarContacto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Enviar"
+        android:textColor="@color/white"
+        android:backgroundTint="@color/verde_claro"
+        android:paddingTop="14dp"
+        android:paddingBottom="14dp" />
+
+</LinearLayout>

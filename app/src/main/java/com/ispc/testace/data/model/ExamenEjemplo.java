@@ -1,3 +1,4 @@
+/*
 package com.ispc.testace.data.model;
 
 public class ExamenEjemplo {
@@ -38,3 +39,4 @@ public class ExamenEjemplo {
     }
 
 }
+*/
