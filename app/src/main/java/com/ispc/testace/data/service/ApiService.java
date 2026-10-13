@@ -13,6 +13,7 @@ import com.ispc.testace.data.model.LoginRequest;
 import com.ispc.testace.data.model.AuthResponse;
 import com.ispc.testace.data.model.ExamenCatalogo;
 import com.ispc.testace.data.model.FiltroItem;
+import com.ispc.testace.data.model.Perfil;
 
 import java.util.List;
 import java.util.Map;
@@ -85,4 +86,21 @@ public interface  ApiService {
 
     @GET("niveles/")
     Call<List<FiltroItem>> getNiveles();
+
+    /* Perfil Endpoints */
+    @GET("auth/perfil/")
+    Call<Perfil> getPerfil();
+
+    @PATCH("auth/perfil/")
+    Call<Perfil> updatePerfil(@Body Map<String, Object> datos);
+
+    @DELETE("auth/perfil/")
+    Call<Void> deletePerfil();
+
+    /* Mis exámenes (panel de examen del perfil) */
+    @GET("examenes/")
+    Call<List<ExamenCatalogo>> getMisExamenes(@Query("mine") boolean mine);
+
+    @DELETE("examenes/{slug}/")
+    Call<Void> deleteExamen(@Path("slug") String slug);
 }
