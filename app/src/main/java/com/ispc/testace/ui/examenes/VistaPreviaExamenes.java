@@ -49,7 +49,7 @@ public class VistaPreviaExamenes extends AppCompatActivity {
             //Cristian, despues agrega el examen id por aca y mandalo en el intent.putExtra porfa :)
             // Despues borrar
             Intent intent = new Intent(VistaPreviaExamenes.this, IntentoActivity.class);
-            intent.putExtra("examen_id", 2); // ID del examen seleccionado
+            intent.putExtra("examen_id", 1); // ID del examen seleccionado
             Integer usuarioId = TokenManager.getUsuarioId(); //ID del usuario || usuario null si es un invitado
 
             if (usuarioId != null && TokenManager.estaLogueado()) {
