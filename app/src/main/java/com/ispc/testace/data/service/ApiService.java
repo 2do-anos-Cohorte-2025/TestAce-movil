@@ -8,6 +8,8 @@ import com.ispc.testace.data.model.IntentoExamen;
 import com.ispc.testace.data.model.RespuestaUsuario;
 import com.ispc.testace.data.model.LoginRequest;
 import com.ispc.testace.data.model.AuthResponse;
+import com.ispc.testace.data.model.ExamenCatalogo;
+import com.ispc.testace.data.model.FiltroItem;
 
 import java.util.List;
 
@@ -47,4 +49,17 @@ public interface  ApiService {
 
     @POST("auth/login/")
     Call<AuthResponse> login(@Body LoginRequest request);
+
+    @GET("examenes/")
+    Call<List<ExamenCatalogo>> getExamenesCatalogo(
+            @Query("categoria") String categoria,
+            @Query("nivel") String nivel,
+            @Query("creador") String creador,
+            @Query("search") String search);
+
+    @GET("categorias/")
+    Call<List<FiltroItem>> getCategorias();
+
+    @GET("niveles/")
+    Call<List<FiltroItem>> getNiveles();
 }
