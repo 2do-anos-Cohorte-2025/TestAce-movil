@@ -13,19 +13,19 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.ispc.testace.R;
 import com.ispc.testace.data.model.Opcion;
+
+import java.util.ArrayList;
 import java.util.List;
 public class OpcionAdapter extends RecyclerView.Adapter<OpcionAdapter.OpcionViewHolder>  {
     private List<Opcion> opciones;
     private OnOpcionSelectedListener listener;
-
-    private int selectedPosition = -1;
 
     public interface OnOpcionSelectedListener {
         void onOpcionSelected(int opcionId);
     }
 
     public OpcionAdapter(List<Opcion> opciones, OnOpcionSelectedListener listener) {
-        this.opciones = opciones;
+        this.opciones = opciones != null ? opciones : new ArrayList<>(); // Inicializar con lista vacía si es null
         this.listener = listener;
     }
 
@@ -60,7 +60,7 @@ public class OpcionAdapter extends RecyclerView.Adapter<OpcionAdapter.OpcionView
             holder.imageViewOpcion.setVisibility(View.GONE);
         }
 
-        // Actualizar el RadioButton directamente
+
         holder.radioButtonOpcion.setChecked(opcion.isSelected());
 
         // Configurar el clic en el RadioButton y en el itemView
@@ -83,7 +83,7 @@ public class OpcionAdapter extends RecyclerView.Adapter<OpcionAdapter.OpcionView
     }
 
     public void updateOpciones(List<Opcion> nuevasOpciones) {
-        this.opciones = nuevasOpciones;
+        this.opciones = nuevasOpciones != null ? nuevasOpciones : new ArrayList<>();
         notifyDataSetChanged();
     }
 

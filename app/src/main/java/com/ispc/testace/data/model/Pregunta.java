@@ -5,6 +5,7 @@ import java.util.List;
 
 public class Pregunta {
     private int id;
+    private int Examen;
     private String enunciado;
     private String tipo;
     private double puntos;
@@ -29,6 +30,14 @@ public class Pregunta {
     }
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getExamen() {
+        return Examen;
+    }
+
+    public void setExamen(int examen) {
+        Examen = examen;
     }
 
     public String getEnunciado() {

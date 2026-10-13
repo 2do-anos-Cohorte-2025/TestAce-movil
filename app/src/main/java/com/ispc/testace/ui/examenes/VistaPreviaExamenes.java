@@ -6,8 +6,10 @@ import android.widget.Button;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import com.ispc.testace.R;
+import com.ispc.testace.data.local.TokenManager;
 import com.ispc.testace.ui.examenes.intento.IntentoActivity;
 import android.view.View;
+import android.widget.Toast;
 
 public class VistaPreviaExamenes extends AppCompatActivity {
 
@@ -43,15 +45,16 @@ public class VistaPreviaExamenes extends AppCompatActivity {
         }
 
         btnComenzar.setOnClickListener(v -> {
-           /* Intent intent = new Intent(VistaPreviaExamenes.this, IntentoActivity.class);*/
-
-           /* intent.putExtra("EXAMEN_ID", examenId);*/
-           /* startActivity(intent);
-            finish();*/
-            Integer usuarioId=null;
+            // HOLA
+            //Cristian, despues agrega el examen id por aca y mandalo en el intent.putExtra porfa :)
+            // Despues borrar
             Intent intent = new Intent(VistaPreviaExamenes.this, IntentoActivity.class);
             intent.putExtra("examen_id", 2); // ID del examen seleccionado
-            intent.putExtra("usuario_id", usuarioId); // ID del usuario (puede ser null si no está logueado)
+            Integer usuarioId = TokenManager.getUsuarioId(); //ID del usuario || usuario null si es un invitado
+
+            if (usuarioId != null && TokenManager.estaLogueado()) {
+                intent.putExtra("usuario_id", usuarioId);
+            }
             startActivity(intent);
         });
         btnFlechitaVolver.setOnClickListener(v -> {

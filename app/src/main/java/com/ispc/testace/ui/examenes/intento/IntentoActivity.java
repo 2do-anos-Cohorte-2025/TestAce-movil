@@ -21,6 +21,7 @@ import com.bumptech.glide.Glide;
 import com.ispc.testace.R;
 import com.ispc.testace.data.model.Opcion;
 import com.ispc.testace.data.model.Pregunta;
+import com.ispc.testace.ui.examenes.intento.adapter.IntentoAdapter;
 import com.ispc.testace.ui.examenes.intento.adapter.OpcionAdapter;
 
 import java.util.ArrayList;
@@ -30,11 +31,11 @@ public class IntentoActivity extends AppCompatActivity {
     private IntentoViewModel viewModel;
     private TextView textViewNombreExamen, textViewTiempoRestante, textViewPreguntaActual;
     private ImageView imageViewPregunta;
-    private LinearLayout containerOpciones;
     private EditText editTextRespuestaTexto;
     private Button buttonAnterior, buttonSiguiente, buttonFinalizar, buttonCancelar;
-    private OpcionAdapter opcionAdapter;
-    private RecyclerView recyclerViewOpciones;
+    private IntentoAdapter intentoAdapter;
+    /*private OpcionAdapter opcionAdapter;*/
+    private RecyclerView recyclerViewPreguntas;
 
     private CountDownTimer countDownTimer;
 
@@ -49,24 +50,39 @@ public class IntentoActivity extends AppCompatActivity {
 
         textViewNombreExamen = findViewById(R.id.textViewNombreExamen);
         textViewTiempoRestante = findViewById(R.id.textViewTiempoRestante);
-        textViewPreguntaActual = findViewById(R.id.textViewPreguntaActual);
-        imageViewPregunta = findViewById(R.id.imageViewPregunta);
-        /*containerOpciones = findViewById(R.id.containerOpciones);*/
-        editTextRespuestaTexto = findViewById(R.id.editTextRespuestaTexto);
         buttonAnterior = findViewById(R.id.buttonAnterior);
         buttonSiguiente = findViewById(R.id.buttonSiguiente);
         buttonFinalizar = findViewById(R.id.buttonFinalizar);
         buttonCancelar = findViewById(R.id.buttonCancelar);
+        recyclerViewPreguntas = findViewById(R.id.recyclerViewPreguntas);
 
 
-        recyclerViewOpciones = findViewById(R.id.recyclerViewOpciones);
-        if (recyclerViewOpciones == null) {
-            Log.e("IntentoActivity", "RecyclerView no encontrado en el layout");
-        } else {
-            recyclerViewOpciones.setLayoutManager(new LinearLayoutManager(this));
-            opcionAdapter = new OpcionAdapter(new ArrayList<>(), this::onOpcionSelected);
-            recyclerViewOpciones.setAdapter(opcionAdapter);
+
+        if (recyclerViewPreguntas == null) {
+            Log.e("IntentoActivity", "Error: recyclerViewPreguntas no encontrado en el layout");
+            Toast.makeText(this, "Error: RecyclerView no encontrado", Toast.LENGTH_LONG).show();
+            finish();
+            return;
         }
+
+        // Configurar RecyclerView para las preguntas y opciones
+        recyclerViewPreguntas.setLayoutManager(new LinearLayoutManager(this));
+        intentoAdapter = new IntentoAdapter(viewModel);
+        recyclerViewPreguntas.setAdapter(intentoAdapter);
+
+        viewModel.getPreguntasLiveData().observe(this, preguntas -> {
+            if (preguntas != null) {
+                intentoAdapter.setPreguntas(preguntas);
+                actualizarPreguntaActual(0); // Actualizar con el índice inicial
+            }
+        });
+
+        viewModel.getPreguntaActualIndex().observe(this, index -> {
+            actualizarPreguntaActual(index);
+        });
+
+        viewModel.getPreguntaActualIndex().observe(this, this::actualizarPreguntaActual);
+
 
         int duracionExamen = getIntent().getIntExtra("duracion_examen", 30); // 30 minutos por defecto
         viewModel.iniciarTiempoExamen(duracionExamen);
@@ -79,36 +95,22 @@ public class IntentoActivity extends AppCompatActivity {
             }
         });
 
-        viewModel.getPreguntaIndex().observe(this, index -> {
+        viewModel.getPreguntaActualIndex().observe(this, index -> {
             actualizarEstadoBotones();
         });
 
-        viewModel.getPreguntaActualLiveData().observe(this, pregunta -> {
-            if (pregunta != null) {
-                textViewPreguntaActual.setText(pregunta.getEnunciado());
-                if (pregunta.getImagen_pregunta() != null) {
-                    imageViewPregunta.setVisibility(View.VISIBLE);
-                    Glide.with(this)
-                            .load(pregunta.getImagen_pregunta())
-                            .placeholder(R.drawable.placeholder_imagen)
-                            .into(imageViewPregunta);
-                } else {
-                    imageViewPregunta.setVisibility(View.GONE);
-                }
-                actualizarEstadoBotones();
-            }
-        });
 
         viewModel.getOpcionesLiveData().observe(this, opciones -> {
             if (opciones != null) {
-                opcionAdapter.updateOpciones(opciones);
+                intentoAdapter.setOpciones(opciones);
             }
         });
-        viewModel.getPreguntaIndex().observe(this, index ->{
+        viewModel.getPreguntaActualIndex().observe(this, index ->{
             buttonAnterior.setEnabled(index > 0);
             buttonSiguiente.setEnabled(index < viewModel.getPreguntasLiveData().getValue().size()-1);
 
         });
+
         /*viewModel.isLoading().observe(this. isLoading ->{
             Barra de progreso, averiguar como agregar
         });*/
@@ -118,30 +120,46 @@ public class IntentoActivity extends AppCompatActivity {
             }
         });
 
+        viewModel.getResultadoLiveData().observe(this, resultado -> {
+            if(viewModel.getIntentoExamenLiveData().getValue().getFechaFin()!=null){
+                viewModel.getTiempoTranscurridoLiveData().observe(this, tiempo -> {
+                    if(tiempo != 0) {
+                        mostrarResultado(resultado, tiempo.floatValue());
+                    }
+                });}
+        });
+
+        //Botones listener
         buttonAnterior.setOnClickListener(v -> {
                 viewModel.preguntaAnterior();
         });
 
         buttonSiguiente.setOnClickListener(v -> {
-            Integer currentIndex = viewModel.getPreguntaIndex().getValue();
+            Integer currentIndex = viewModel.getPreguntaActualIndex().getValue();
             List<Pregunta> preguntas = viewModel.getPreguntasLiveData().getValue();
+
 
             if (currentIndex == null || preguntas == null || preguntas.isEmpty()) {
                 return;
             }
 
+            if (!viewModel.hayRespuesta(preguntas.get(currentIndex).getId(), preguntas.get(currentIndex).getTipo())) {
 
-            if (!viewModel.hayOpcionSeleccionada(preguntas.get(currentIndex).getId())) {
-                Toast.makeText(this, "Debe seleccionar una opción antes de continuar", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Debés responder la pregunta antes de continuar", Toast.LENGTH_SHORT).show();
                 return;
             }
-
-
                 viewModel.siguientePregunta();
 
         });
 
         buttonFinalizar.setOnClickListener(v -> {
+            Integer currentIndex = viewModel.getPreguntaActualIndex().getValue();
+            List<Pregunta> preguntas = viewModel.getPreguntasLiveData().getValue();
+            if (!viewModel.hayRespuesta(preguntas.get(currentIndex).getId(), preguntas.get(currentIndex).getTipo())) {
+
+                Toast.makeText(this, "Debés responder la pregunta antes de continuar", Toast.LENGTH_SHORT).show();
+                return;
+            }
             mostrarDialogoFinalizar();
         });
 
@@ -150,7 +168,7 @@ public class IntentoActivity extends AppCompatActivity {
         });
 
 
-
+        //Obteniendo los intent para inicializar el examen
         int examenId = getIntent().getIntExtra("examen_id", -1);
         int usuarioId = getIntent().getIntExtra("usuario_id", -1);
 
@@ -162,6 +180,7 @@ public class IntentoActivity extends AppCompatActivity {
             finish();
         }
     }
+
 
     private void iniciarContadorTiempo() {
         countDownTimer = new CountDownTimer(viewModel.getTiempoRestanteEnMilis(), 1000) {
@@ -187,8 +206,20 @@ public class IntentoActivity extends AppCompatActivity {
         textViewTiempoRestante.setText(String.format("%02d:%02d", minutos, segundos));
     }
 
+
+
+    private void actualizarPreguntaActual(Integer currentIndex) {
+        List<Pregunta> preguntas = viewModel.getPreguntasLiveData().getValue();
+
+        if (currentIndex != null && preguntas != null && currentIndex < preguntas.size()) {
+            intentoAdapter.setCurrentPosition(currentIndex);
+            actualizarEstadoBotones();
+        }
+    }
+
+
     private void actualizarEstadoBotones() {
-        Integer currentIndex = viewModel.getPreguntaIndex().getValue();
+        Integer currentIndex = viewModel.getPreguntaActualIndex().getValue();
         List<Pregunta> preguntas = viewModel.getPreguntasLiveData().getValue();
 
         if (currentIndex == null || preguntas == null || preguntas.isEmpty()) {
@@ -232,22 +263,21 @@ public class IntentoActivity extends AppCompatActivity {
                 .show();
     }
 
-    private void onOpcionSelected(int opcionId) {
-        Pregunta preguntaActual = viewModel.getPreguntaActualLiveData().getValue();
-        if (preguntaActual != null) {
-            List<Opcion> opciones = viewModel.getOpcionesLiveData().getValue();
-            if (opciones != null) {
-                for (Opcion opcion : opciones) {
-                    opcion.setSelected(false);
-                }
-            }
 
-
-            viewModel.guardarRespuesta(preguntaActual.getId(), opcionId,null);
-            viewModel.guardarSeleccionOpcion(preguntaActual.getId(), opcionId);
-
-            opcionAdapter.notifyDataSetChanged();
-        }
+    private void mostrarResultado(Double resultado, float tiempoTranscurrido) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Examen Finalizado");
+        builder.setMessage(
+                "Resultado: " + resultado + " puntos\n" +
+                        "Tiempo transcurrido: " + tiempoTranscurrido + " minutos"
+        );
+        builder.setPositiveButton("Aceptar", (dialog, which) -> {
+            dialog.dismiss();
+            finish(); // Cerrar la actividad
+        });
+        builder.setCancelable(false); // Evitar que se cierre al tocar fuera
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
     @Override
     protected void onDestroy() {

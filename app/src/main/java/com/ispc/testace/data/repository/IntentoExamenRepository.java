@@ -1,6 +1,7 @@
 package com.ispc.testace.data.repository;
 
 import com.google.gson.Gson;
+import com.ispc.testace.data.local.TokenManager;
 import com.ispc.testace.data.model.IntentoExamen;
 import com.ispc.testace.data.service.IntentoExamenService;
 
@@ -27,12 +28,22 @@ public class IntentoExamenRepository {
     public void createIntentoExamen(IntentoExamen intentoExamen, Callback<IntentoExamen> callback) {
         // Transformar el objeto a JSON en el Repository
         Map<String, Object> requestBody = new HashMap<>();
+
         requestBody.put("examen", intentoExamen.getExamen());
-        requestBody.put("usuario", intentoExamen.getUsuario());
+
+        Integer usuarioId = TokenManager.getUsuarioId();
+
+        if (TokenManager.estaLogueado() && usuarioId != null) {
+            requestBody.put("usuario", usuarioId);
+        }
 
         Gson gson = new Gson();
         String json = gson.toJson(requestBody);
-        RequestBody body = RequestBody.create(json, MediaType.parse("application/json"));
+
+        RequestBody body = RequestBody.create(
+                json,
+                MediaType.parse("application/json")
+        );
 
         intentoExamenService.createIntentoExamen(body, callback);
     }

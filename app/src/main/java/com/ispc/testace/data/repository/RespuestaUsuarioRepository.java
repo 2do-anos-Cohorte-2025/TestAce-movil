@@ -1,5 +1,7 @@
 package com.ispc.testace.data.repository;
 
+import android.util.Log;
+
 import com.ispc.testace.data.model.RespuestaUsuario;
 import com.ispc.testace.data.service.RespuestaUsuarioService;
 import retrofit2.Callback;

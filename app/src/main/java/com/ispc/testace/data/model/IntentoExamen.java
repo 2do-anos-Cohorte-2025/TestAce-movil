@@ -11,6 +11,7 @@ public class IntentoExamen {
     private Date fecha_inicio;
     private Date fecha_fin;
     private Double resultado;
+    public float tiempoTranscurrido;
 
     public IntentoExamen(int examen, Integer usuario) {
         this.examen = examen;
@@ -86,5 +87,13 @@ public class IntentoExamen {
     }
     public void setResultado(Double resultado) {
         this.resultado = resultado;
+    }
+
+    public float getTiempoTranscurrido() {
+        return tiempoTranscurrido;
+    }
+
+    public void setTiempoTranscurrido(float tiempoTranscurrido) {
+        this.tiempoTranscurrido = tiempoTranscurrido;
     }
 }

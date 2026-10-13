@@ -4,29 +4,28 @@ public class RespuestaUsuario {
     private int id;
     private int intento;
     private int pregunta;
-    private Integer opcionSeleccionada;
-    private String respuestaTexto;
+    private Integer opcion_seleccionada;
+    private String respuesta_texto;
 
     public RespuestaUsuario() {}
 
-    public RespuestaUsuario(int intento, int pregunta, Integer opcionSeleccionada, String respuestaTexto) {
+    public RespuestaUsuario(int intento, int pregunta, Integer opcion_seleccionada, String respuesta_texto) {
         this.intento = intento;
         this.pregunta = pregunta;
-        this.opcionSeleccionada = opcionSeleccionada;
-        this.respuestaTexto = respuestaTexto;
+        this.opcion_seleccionada = opcion_seleccionada;
+        this.respuesta_texto = respuesta_texto;
     }
-
 
 
     // Borrar por inutilidad
     public void registrarRespuesta(int opcion) {
-        this.opcionSeleccionada = opcion;
-        this.respuestaTexto = null;
+        this.opcion_seleccionada = opcion;
+        this.respuesta_texto = null;
     }
 
     public void registrarRespuesta(String texto) {
-        this.respuestaTexto = texto;
-        this.opcionSeleccionada = null;
+        this.respuesta_texto = texto;
+        this.opcion_seleccionada = null;
     }
 
 
@@ -39,10 +38,10 @@ public class RespuestaUsuario {
     public int getPregunta() { return pregunta; }
     public void setPregunta(int pregunta) { this.pregunta = pregunta; }
 
-    public Integer getOpcionSeleccionada() { return opcionSeleccionada; }
-    public void setOpcionSeleccionada(Integer opcionSeleccionada) { this.opcionSeleccionada = opcionSeleccionada; }
+    public Integer getOpcion_seleccionada() { return opcion_seleccionada; }
+    public void setOpcion_seleccionada(Integer opcion_seleccionada) { this.opcion_seleccionada = opcion_seleccionada; }
 
-    public String getRespuestaTexto() { return respuestaTexto; }
-    public void setRespuestaTexto(String respuestaTexto) { this.respuestaTexto = respuestaTexto; }
+    public String getRespuesta_texto() { return respuesta_texto; }
+    public void setRespuesta_texto(String respuesta_texto) { this.respuesta_texto = respuesta_texto; }
 
 }
