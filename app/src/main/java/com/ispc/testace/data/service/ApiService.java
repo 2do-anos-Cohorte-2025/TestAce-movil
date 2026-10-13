@@ -6,6 +6,9 @@ import com.ispc.testace.data.model.Pregunta;
 import com.ispc.testace.data.model.Opcion;
 import com.ispc.testace.data.model.IntentoExamen;
 import com.ispc.testace.data.model.RespuestaUsuario;
+
+import com.ispc.testace.data.model.RegistroRequest;
+import com.ispc.testace.data.model.RegistroResponse;
 import com.ispc.testace.data.model.LoginRequest;
 import com.ispc.testace.data.model.AuthResponse;
 import com.ispc.testace.data.model.ExamenCatalogo;
@@ -29,6 +32,8 @@ public interface  ApiService {
     @POST("examenes/")
     Call<Examen> createExamen(@Body Examen examen);
 
+    @POST("auth/registro/")
+    Call<RegistroResponse> registro(@Body RegistroRequest body);
     @PATCH("examenes/{slug}/")
     Call<Examen> updateExamen(@Path("slug") String slug, @Body Map<String, Object> datos);
 
