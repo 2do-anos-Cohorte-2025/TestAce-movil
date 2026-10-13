@@ -52,26 +52,20 @@
                 android:contentDescription="Foto de perfil"
                 android:src="@drawable/ic_person_placeholder" />
 
-            <!-- Usuario -->
+            <!-- Correo (solo lectura: el backend lo usa como username) -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
-                android:text="Nombre de usuario" />
+                android:text="Correo electrónico" />
 
             <EditText
-                android:id="@+id/etUsername"
+                android:id="@+id/etEmail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:enabled="false"
-                android:text="usuario123" />
-
-            <Button
-                android:id="@+id/btnEditUsername"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end"
-                android:text="Editar" />
+                android:inputType="textEmailAddress"
+                android:text="" />
 
             <!-- Nombre -->
             <TextView
@@ -85,7 +79,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:enabled="false"
-                android:text="Juan" />
+                android:text="" />
 
             <Button
                 android:id="@+id/btnEditNombre"
@@ -106,7 +100,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:enabled="false"
-                android:text="Pérez" />
+                android:text="" />
 
             <Button
                 android:id="@+id/btnEditApellido"
@@ -133,62 +127,39 @@
 
         </LinearLayout>
 
-        <!-- ================ EXÁMENES RECIENTES ================= -->
+        <!-- ================ PANEL DE EXÁMENES ================= -->
         <LinearLayout
             android:id="@+id/layoutExamenes"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingTop="16dp"
+            android:padding="16dp"
             android:visibility="gone">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="Mis exámenes"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:id="@+id/contenedorMisExamenes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
                 android:text="Exámenes recientes"
                 android:textStyle="bold" />
 
-            <!-- Examen 1 -->
             <LinearLayout
+                android:id="@+id/contenedorIntentos"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:paddingTop="16dp">
-
-                <TextView
-                    android:id="@+id/tvExam1Name"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Examen de Matemática" />
-
-                <TextView
-                    android:id="@+id/tvExam1Score"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="85 pts" />
-            </LinearLayout>
-
-            <!-- Examen 2 -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:paddingTop="12dp">
-
-                <TextView
-                    android:id="@+id/tvExam2Name"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Examen de Programación" />
-
-                <TextView
-                    android:id="@+id/tvExam2Score"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="92 pts" />
-            </LinearLayout>
+                android:orientation="vertical" />
 
         </LinearLayout>
 
