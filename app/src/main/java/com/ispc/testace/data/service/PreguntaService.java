@@ -5,6 +5,8 @@ import com.ispc.testace.data.ApiClient;
 import  com.ispc.testace.data.model.Pregunta;
 
 import java.util.List;
+import java.util.Map;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 public class PreguntaService {
@@ -16,4 +18,8 @@ public class PreguntaService {
     public void getPreguntasByExamen(int examenId, Callback<List<Pregunta>> callback){
         apiService.getPreguntasByExamen(examenId).enqueue(callback);
     }
+    public void updatePregunta(int preguntaId, Map<String, Object> datos, Callback<Pregunta> callback) {
+        apiService.updatePregunta(preguntaId, datos).enqueue(callback);
+    }
+
 }
