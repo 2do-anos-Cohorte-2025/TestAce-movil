@@ -13,8 +13,6 @@ public class Usuario {
     private String apellido;
     private String rol;
 
-    @SerializedName("is_active")
-    private Boolean activo;
     public int getId() {
         return id;
     }
@@ -37,10 +35,6 @@ public class Usuario {
 
     public String getRol() {
         return rol;
-    }
-
-    public boolean isActivo() {
-        return activo == null || activo;
     }
 
     public String getNombreCompleto() {
