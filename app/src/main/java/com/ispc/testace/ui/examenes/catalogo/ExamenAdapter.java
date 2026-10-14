@@ -49,6 +49,7 @@ public class ExamenAdapter extends RecyclerView.Adapter<ExamenAdapter.ViewHolder
         ExamenCatalogo e = items.get(position);
 
         h.tvNombre.setText(e.getTitulo());
+        h.imgProfesor.setVisibility(e.isEsProfesor() ? View.VISIBLE : View.GONE);
         h.tvCategoria.setText("Categoría: " +
                 (e.getCategoriaNombre() != null ? e.getCategoriaNombre() : "Sin categoría"));
         h.tvNivel.setText("Nivel: " +
@@ -76,13 +77,14 @@ public class ExamenAdapter extends RecyclerView.Adapter<ExamenAdapter.ViewHolder
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-        ImageView img;
+        ImageView img, imgProfesor;
         TextView tvNombre, tvCategoria, tvNivel, tvTiempo;
         Button btnVerMas;
 
         ViewHolder(@NonNull View itemView) {
             super(itemView);
             img = itemView.findViewById(R.id.imgExamen);
+            imgProfesor = itemView.findViewById(R.id.imgProfesor);
             tvNombre = itemView.findViewById(R.id.tvNombreExamen);
             tvCategoria = itemView.findViewById(R.id.tvCategoria);
             tvNivel = itemView.findViewById(R.id.tvNivel);
