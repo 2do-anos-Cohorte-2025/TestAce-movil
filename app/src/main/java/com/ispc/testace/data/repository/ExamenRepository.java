@@ -6,7 +6,9 @@ import com.ispc.testace.data.model.Examen;
 import com.ispc.testace.data.model.IntentoExamen;
 import com.ispc.testace.data.service.ExamenService;
 import com.ispc.testace.data.service.IntentoExamenService;
+import com.ispc.testace.data.model.ExamenCatalogo;
 
+import java.util.List;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Locale;
@@ -32,5 +34,13 @@ public class ExamenRepository {
 
     public void updateExamen(String slug, Map<String, Object> datos, Callback<Examen> callback) {
         examenService.updateExamen(slug, datos, callback);
+    }
+
+    public void getExamenes(Callback<List<ExamenCatalogo>> callback) {
+        examenService.getExamenes(callback);
+    }
+
+    public void deleteExamen(String slug, Callback<Void> callback) {
+        examenService.deleteExamen(slug, callback);
     }
 }
