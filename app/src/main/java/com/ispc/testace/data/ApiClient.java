@@ -16,7 +16,7 @@ public class ApiClient {
         if (retrofit == null) {
 
             // String baseUrl = "http://10.0.2.2:8000/"; // Endpoint para los emuladores
-            String baseUrl = "http://192.168.100.21:8000/api/"; // Endpoint para los dispositivo físico
+            String baseUrl = "http://192.168.1.20:8000/api/"; // Endpoint para los dispositivo físico
 
 
             HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
