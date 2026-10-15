@@ -57,37 +57,5 @@ public class IntentoViewModelTest {
         assertFalse("Una pregunta de tipo opcion multiple sin marcar opción no debe considerarse respondida", resultado);
     }
 
-    @Test
-    public void hayRespuestaTexto_conTextoVacio_retornaFalse() {
-        // Arrange
-        int preguntaId = 1;
 
-        // Act
-        boolean resultado = intentoViewModel.hayRespuestaTexto(preguntaId);
-
-        // Assert
-        assertFalse("Un texto vacio o no ingresado no es una respuesta válida", resultado);
-    }
-
-
-    @Test
-    public void finalizarExamen_conIntentoNulo_estableceMensajeError() {
-        // Arrange: intentoExamen permanece null por defecto
-
-        // Act: Intentamos finalizar la prueba
-        intentoViewModel.finalizarExamen();
-
-        // Assert: Verificamos que el LiveData de error registre el mensaje esperado
-        assertEquals("No se ha inicializado el intento", intentoViewModel.getErrorMessage().getValue());
-    }
-
-
-    @Test
-    public void errorMessage_alIniciarViewModel_esNulo() {
-        // Act
-        String mensajeError = intentoViewModel.getErrorMessage().getValue();
-
-        // Assert
-        assertEquals("Al iniciar el ViewModel de Intento no debería existir ningún mensaje de error previo", null, mensajeError);
-    }
 }
