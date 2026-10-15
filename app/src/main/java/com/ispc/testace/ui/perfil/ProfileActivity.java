@@ -24,6 +24,7 @@ import com.ispc.testace.data.model.IntentoExamen;
 import com.ispc.testace.data.model.Perfil;
 import com.ispc.testace.data.service.ApiService;
 import com.ispc.testace.ui.login.LoginActivity;
+import com.ispc.testace.ui.examenes.creados.MisExamenesActivity;
 
 import java.util.HashMap;
 import java.util.List;
@@ -90,6 +91,8 @@ public class ProfileActivity extends AppCompatActivity {
         findViewById(R.id.btnEditApellido).setOnClickListener(v -> enableEditing(etApellido));
         btnGuardar.setOnClickListener(v -> guardarPerfil());
         btnEliminarCuenta.setOnClickListener(v -> confirmarEliminarCuenta());
+        findViewById(R.id.btnExamenesCreados).setOnClickListener(v ->
+                startActivity(new Intent(this, MisExamenesActivity.class)));
 
         cargarPerfil();
     }

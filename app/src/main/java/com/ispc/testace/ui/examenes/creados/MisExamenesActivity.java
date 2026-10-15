@@ -19,7 +19,7 @@ import com.ispc.testace.data.ApiClient;
 import com.ispc.testace.data.model.ExamenCatalogo;
 import com.ispc.testace.data.service.ApiService;
 import com.ispc.testace.ui.examenes.VistaPreviaExamenes;
-// import com.ispc.testace.ui.examenes.modificar.ModificarExamenActivity;
+import com.ispc.testace.ui.examenes.modificar.ModificarExamenActivity;
 
 import java.util.List;
 
@@ -58,7 +58,7 @@ public class MisExamenesActivity extends AppCompatActivity {
 
             @Override
             public void onEditar(ExamenCatalogo examen) {
-                Intent i = new Intent(MisExamenesActivity.this, VistaPreviaExamenes.class);
+                Intent i = new Intent(MisExamenesActivity.this, ModificarExamenActivity.class);
                 i.putExtra("examen_slug", examen.getSlug());
                 startActivity(i);
             }
