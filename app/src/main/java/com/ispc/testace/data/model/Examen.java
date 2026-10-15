@@ -6,6 +6,7 @@ import java.util.List;
 public class Examen {
     private int id;
     private String titulo;
+    private String slug;
     private String descripcion;
     private String categoria;
     private String nivel;
@@ -36,6 +37,15 @@ public class Examen {
     public void setTitulo(String titulo){
         this.titulo=titulo;
     }
+
+    public String getSlug() {
+        return slug;
+    }
+
+    public void setSlug(String slug) {
+        this.slug = slug;
+    }
+
     public String getDescripcion(){
         return descripcion;
     }

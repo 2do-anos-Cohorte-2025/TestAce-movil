@@ -1,9 +1,15 @@
 package com.ispc.testace.data.model;
 
+import com.google.gson.annotations.SerializedName;
+
 public class Usuario {
     private int id;
     private String email;
+
+    @SerializedName(value = "nombre", alternate = {"first_name"})
     private String nombre;
+
+    @SerializedName(value = "apellido", alternate = {"last_name"})
     private String apellido;
     private String rol;
 
@@ -29,6 +35,12 @@ public class Usuario {
 
     public String getRol() {
         return rol;
+    }
+
+    public String getNombreCompleto() {
+        String completo = ((nombre != null ? nombre : "") + " "
+                + (apellido != null ? apellido : "")).trim();
+        return completo.isEmpty() ? email : completo;
     }
 }
 

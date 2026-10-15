@@ -210,6 +210,7 @@ public class CatalogoActivity extends AppCompatActivity {
         intent.putExtra("EXAMEN_SLUG", examen.getSlug());
         intent.putExtra("EXAMEN_NOMBRE", examen.getTitulo());
         intent.putExtra("EXAMEN_DESCRIPCION", examen.getDescripcion());
+        intent.putExtra("EXAMEN_TIEMPO", examen.getTiempoLimite());
         startActivity(intent);
     }
 

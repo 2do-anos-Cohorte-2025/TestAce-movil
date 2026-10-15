@@ -18,6 +18,10 @@
         android:theme="@style/Theme.TestAceMovil"
         tools:targetApi="31">
         <activity
+            android:name=".ui.admin.AdminActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.examenes.modificar.ModificarExamenActivity"
             android:name=".ui.examenes.creados.MisExamenesActivity"
             android:exported="false" />
         <activity

@@ -1,11 +1,14 @@
 package com.ispc.testace.data.model;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class Pregunta {
     private int id;
-    private int Examen;
+    @SerializedName("examen")
+    private int examen;
     private String enunciado;
     private String tipo;
     private double puntos;
@@ -33,11 +36,11 @@ public class Pregunta {
     }
 
     public int getExamen() {
-        return Examen;
+        return examen;
     }
 
     public void setExamen(int examen) {
-        Examen = examen;
+        this.examen = examen;
     }
 
     public String getEnunciado() {
