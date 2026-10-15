@@ -3,25 +3,29 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/fondo">
+    android:background="@color/beige_claro"
+    android:fillViewport="true">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="0dp">
+        android:orientation="vertical">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="@color/verde_claro"
-            app:title=" "/>
+            app:title=" " />
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabLayoutProfile"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:background="@color/beige_claro"
+            app:tabIndicatorColor="@color/verde_claro"
+            app:tabSelectedTextColor="@color/verde_claro"
+            app:tabTextColor="@color/verde_oscuro">
 
             <com.google.android.material.tabs.TabItem
                 android:layout_width="wrap_content"
@@ -40,8 +44,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingTop="16dp"
-            android:padding="16dp"
+            android:padding="24dp"
             android:visibility="visible">
 
             <ImageView
@@ -52,78 +55,120 @@
                 android:contentDescription="Foto de perfil"
                 android:src="@drawable/ic_person_placeholder" />
 
-            <!-- Correo (solo lectura: el backend lo usa como username) -->
-            <TextView
+            <!-- Nombre completo + gorrito si es profesor -->
+            <LinearLayout
                 android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="12dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tvNombreCompleto"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/verde_oscuro"
+                    android:textSize="22sp"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:id="@+id/imgProfesor"
+                    android:layout_width="26dp"
+                    android:layout_height="26dp"
+                    android:layout_marginStart="6dp"
+                    android:contentDescription="Usuario profesor"
+                    android:src="@drawable/profesor"
+                    android:visibility="gone" />
+            </LinearLayout>
+
+            <!-- Correo (solo lectura: el backend lo usa como username) -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
-                android:text="Correo electrónico" />
+                android:hint="Correo electrónico">
 
-            <EditText
-                android:id="@+id/etEmail"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:enabled="false"
-                android:inputType="textEmailAddress"
-                android:text="" />
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etEmail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:enabled="false"
+                    android:inputType="textEmailAddress" />
+            </com.google.android.material.textfield.TextInputLayout>
 
             <!-- Nombre -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="Nombre" />
-
-            <EditText
-                android:id="@+id/etNombre"
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:enabled="false"
-                android:text="" />
+                android:layout_marginTop="12dp"
+                android:hint="Nombre">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etNombre"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:enabled="false"
+                    android:inputType="textPersonName" />
+            </com.google.android.material.textfield.TextInputLayout>
 
             <Button
                 android:id="@+id/btnEditNombre"
+                style="@style/Widget.Material3.Button.OutlinedButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
-                android:text="Editar" />
+                android:text="Editar"
+                android:textColor="@color/verde_claro"
+                app:strokeColor="@color/verde_claro" />
 
             <!-- Apellido -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="Apellido" />
-
-            <EditText
-                android:id="@+id/etApellido"
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:enabled="false"
-                android:text="" />
+                android:layout_marginTop="4dp"
+                android:hint="Apellido">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etApellido"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:enabled="false"
+                    android:inputType="textPersonName" />
+            </com.google.android.material.textfield.TextInputLayout>
 
             <Button
                 android:id="@+id/btnEditApellido"
+                style="@style/Widget.Material3.Button.OutlinedButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
-                android:text="Editar" />
+                android:text="Editar"
+                android:textColor="@color/verde_claro"
+                app:strokeColor="@color/verde_claro" />
 
             <!-- Guardar -->
             <Button
                 android:id="@+id/btnGuardar"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="56dp"
                 android:layout_marginTop="24dp"
-                android:text="Guardar" />
+                android:backgroundTint="@color/verde_claro"
+                android:text="Guardar"
+                android:textColor="@color/rosa_claro"
+                app:cornerRadius="12dp" />
 
             <!-- Eliminar cuenta -->
             <Button
                 android:id="@+id/btnEliminarCuenta"
+                style="@style/Widget.Material3.Button.OutlinedButton"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="40dp"
-                android:text="Eliminar Cuenta" />
+                android:layout_height="56dp"
+                android:layout_marginTop="32dp"
+                android:text="Eliminar Cuenta"
+                android:textColor="@color/rosa"
+                app:cornerRadius="12dp"
+                app:strokeColor="@color/rosa" />
 
         </LinearLayout>
 
@@ -133,26 +178,25 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="16dp"
+            android:padding="24dp"
             android:visibility="gone">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Mis exámenes"
-                android:textStyle="bold" />
-
-            <LinearLayout
-                android:id="@+id/contenedorMisExamenes"
+            <Button
+                android:id="@+id/btnExamenesCreados"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical" />
+                android:layout_height="56dp"
+                android:backgroundTint="@color/verde_claro"
+                android:text="Exámenes creados"
+                android:textColor="@color/rosa_claro"
+                app:cornerRadius="12dp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 android:text="Exámenes recientes"
+                android:textColor="@color/verde_oscuro"
+                android:textSize="18sp"
                 android:textStyle="bold" />
 
             <LinearLayout

@@ -6,6 +6,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -13,16 +14,15 @@ import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 
 import com.google.android.material.tabs.TabLayout;
 import com.ispc.testace.R;
 import com.ispc.testace.data.ApiClient;
 import com.ispc.testace.data.local.TokenManager;
-import com.ispc.testace.data.model.ExamenCatalogo;
 import com.ispc.testace.data.model.IntentoExamen;
 import com.ispc.testace.data.model.Perfil;
 import com.ispc.testace.data.service.ApiService;
-import com.ispc.testace.ui.examenes.modificar.ModificarExamenActivity;
 import com.ispc.testace.ui.login.LoginActivity;
 
 import java.util.HashMap;
@@ -40,7 +40,6 @@ public class ProfileActivity extends AppCompatActivity {
 
     private LinearLayout layoutPerfil;
     private LinearLayout layoutExamenes;
-    private LinearLayout contenedorMisExamenes;
     private LinearLayout contenedorIntentos;
 
     private EditText etEmail;
@@ -48,6 +47,10 @@ public class ProfileActivity extends AppCompatActivity {
     private EditText etApellido;
     private Button btnGuardar;
     private Button btnEliminarCuenta;
+    private Button btnExamenesCreados;
+    private TextView tvNombreCompleto;
+    private ImageView imgProfesor;
+    private String rol;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,13 +75,15 @@ public class ProfileActivity extends AppCompatActivity {
 
         layoutPerfil = findViewById(R.id.layoutPerfil);
         layoutExamenes = findViewById(R.id.layoutExamenes);
-        contenedorMisExamenes = findViewById(R.id.contenedorMisExamenes);
         contenedorIntentos = findViewById(R.id.contenedorIntentos);
         etEmail = findViewById(R.id.etEmail);
         etNombre = findViewById(R.id.etNombre);
         etApellido = findViewById(R.id.etApellido);
         btnGuardar = findViewById(R.id.btnGuardar);
         btnEliminarCuenta = findViewById(R.id.btnEliminarCuenta);
+        btnExamenesCreados = findViewById(R.id.btnExamenesCreados);
+        tvNombreCompleto = findViewById(R.id.tvNombreCompleto);
+        imgProfesor = findViewById(R.id.imgProfesor);
 
         setupTabs();
         findViewById(R.id.btnEditNombre).setOnClickListener(v -> enableEditing(etNombre));
@@ -87,13 +92,6 @@ public class ProfileActivity extends AppCompatActivity {
         btnEliminarCuenta.setOnClickListener(v -> confirmarEliminarCuenta());
 
         cargarPerfil();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        // Al volver de "Modificar examen" se refresca la lista.
-        if (api != null) cargarMisExamenes();
     }
 
     // ------------------------------------------------------------- Tabs
@@ -128,6 +126,8 @@ public class ProfileActivity extends AppCompatActivity {
                     return;
                 }
                 Perfil p = response.body();
+                rol = p.getRol();
+                mostrarEncabezado(p.getFirstName(), p.getLastName(), rol);
                 etEmail.setText(p.getEmail());
                 etNombre.setText(p.getFirstName());
                 etApellido.setText(p.getLastName());
@@ -163,6 +163,7 @@ public class ProfileActivity extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     etNombre.setEnabled(false);
                     etApellido.setEnabled(false);
+                    mostrarEncabezado(nombre, apellido, rol);
                     Toast.makeText(ProfileActivity.this, "Perfil actualizado", Toast.LENGTH_SHORT).show();
                 } else {
                     avisarError("No se pudo guardar", response.code());
@@ -211,6 +212,13 @@ public class ProfileActivity extends AppCompatActivity {
         });
     }
 
+    /** Muestra "Nombre Apellido" y, si el usuario es profesor, el gorrito al lado. */
+    private void mostrarEncabezado(String nombre, String apellido, String rolUsuario) {
+        String completo = ((nombre == null ? "" : nombre) + " " + (apellido == null ? "" : apellido)).trim();
+        tvNombreCompleto.setText(completo);
+        imgProfesor.setVisibility("profesor".equalsIgnoreCase(rolUsuario) ? View.VISIBLE : View.GONE);
+    }
+
     private void enableEditing(EditText editText) {
         editText.setEnabled(true);
         editText.requestFocus();
@@ -235,77 +243,6 @@ public class ProfileActivity extends AppCompatActivity {
         }
     }
 
-    /** Exámenes creados por el usuario: GET examenes/?mine=true */
-    private void cargarMisExamenes() {
-        api.getMisExamenes(true).enqueue(new Callback<List<ExamenCatalogo>>() {
-            @Override
-            public void onResponse(Call<List<ExamenCatalogo>> call, Response<List<ExamenCatalogo>> response) {
-                contenedorMisExamenes.removeAllViews();
-                if (!response.isSuccessful() || response.body() == null) {
-                    avisarError("No se pudieron cargar tus exámenes", response.code());
-                    return;
-                }
-                if (response.body().isEmpty()) {
-                    contenedorMisExamenes.addView(textoVacio("Todavía no creaste ningún examen."));
-                    return;
-                }
-                for (ExamenCatalogo examen : response.body()) {
-                    contenedorMisExamenes.addView(filaMiExamen(examen));
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<ExamenCatalogo>> call, Throwable t) {
-                avisarFallaRed(t);
-            }
-        });
-    }
-
-    private View filaMiExamen(ExamenCatalogo examen) {
-        LinearLayout fila = fila();
-        fila.addView(texto(examen.getTitulo(), 1f));
-
-        Button editar = new Button(this);
-        editar.setText("Editar");
-        editar.setOnClickListener(v -> {
-            Intent i = new Intent(this, ModificarExamenActivity.class);
-            i.putExtra("examen_slug", examen.getSlug());
-            startActivity(i);
-        });
-
-        Button eliminar = new Button(this);
-        eliminar.setText("Eliminar");
-        eliminar.setOnClickListener(v -> new AlertDialog.Builder(this)
-                .setTitle("Eliminar examen")
-                .setMessage("¿Eliminar \"" + examen.getTitulo() + "\"?")
-                .setNegativeButton("Cancelar", null)
-                .setPositiveButton("Eliminar", (d, w) -> eliminarExamen(examen.getSlug()))
-                .show());
-
-        fila.addView(editar);
-        fila.addView(eliminar);
-        return fila;
-    }
-
-    private void eliminarExamen(String slug) {
-        api.deleteExamen(slug).enqueue(new Callback<Void>() {
-            @Override
-            public void onResponse(Call<Void> call, Response<Void> response) {
-                if (response.isSuccessful()) {
-                    Toast.makeText(ProfileActivity.this, "Examen eliminado", Toast.LENGTH_SHORT).show();
-                    cargarMisExamenes();
-                } else {
-                    avisarError("No se pudo eliminar el examen", response.code());
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Void> call, Throwable t) {
-                avisarFallaRed(t);
-            }
-        });
-    }
-
     // ---------------------------------------------------------- Helpers
 
     private LinearLayout fila() {
@@ -319,6 +256,7 @@ public class ProfileActivity extends AppCompatActivity {
     private TextView texto(String contenido, float peso) {
         TextView tv = new TextView(this);
         tv.setText(contenido == null ? "" : contenido);
+        tv.setTextColor(ContextCompat.getColor(this, R.color.verde_oscuro));
         tv.setLayoutParams(new LinearLayout.LayoutParams(
                 peso > 0 ? 0 : LinearLayout.LayoutParams.WRAP_CONTENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT, peso));
