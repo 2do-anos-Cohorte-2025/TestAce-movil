@@ -22,6 +22,8 @@
             android:exported="false" />
         <activity
             android:name=".ui.examenes.modificar.ModificarExamenActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.examenes.creados.MisExamenesActivity"
             android:exported="false" />
         <activity
