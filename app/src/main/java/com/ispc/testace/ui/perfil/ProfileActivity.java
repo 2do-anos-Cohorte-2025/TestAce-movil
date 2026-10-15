@@ -1,6 +1,7 @@
 package com.ispc.testace.ui.perfil;
 
 import android.content.Intent;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
@@ -98,6 +99,16 @@ public class ProfileActivity extends AppCompatActivity {
 
     private void setupTabs() {
         TabLayout tabLayout = findViewById(R.id.tabLayoutProfile);
+
+        // Línea vertical que separa "Perfil" de "Exámenes recientes"
+        LinearLayout pestanias = (LinearLayout) tabLayout.getChildAt(0);
+        GradientDrawable separador = new GradientDrawable();
+        separador.setColor(ContextCompat.getColor(this, R.color.verde_claro));
+        separador.setSize(dp(2), 1);
+        pestanias.setShowDividers(LinearLayout.SHOW_DIVIDER_MIDDLE);
+        pestanias.setDividerDrawable(separador);
+        pestanias.setDividerPadding(dp(12));
+
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
