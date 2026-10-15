@@ -36,6 +36,7 @@ public class RegisterActivity extends AppCompatActivity {
     private TextInputEditText etPassword;
     private TextInputEditText etConfirmarPassword;
     private Button btnRegistrarse;
+    private String textoBotonRegistro;
     private TextInputLayout tilNombre, tilApellido, tilEmail, tilPassword, tilConfirmarPassword;
 
     @Override
@@ -49,6 +50,7 @@ public class RegisterActivity extends AppCompatActivity {
         etPassword = findViewById(R.id.etPassword);
         etConfirmarPassword = findViewById(R.id.etConfirmarPassword);
         btnRegistrarse = findViewById(R.id.btnRegistrarse);
+        textoBotonRegistro = btnRegistrarse.getText().toString();
         tilNombre = findViewById(R.id.tilNombre);
         tilApellido = findViewById(R.id.tilApellido);
         tilEmail = findViewById(R.id.tilEmail);
@@ -57,6 +59,7 @@ public class RegisterActivity extends AppCompatActivity {
 
         btnRegistrarse.setOnClickListener(v -> intentarRegistro());
         TextView tvIrALogin = findViewById(R.id.tvIrALogin);
+        tvIrALogin.setPaintFlags(tvIrALogin.getPaintFlags() | android.graphics.Paint.UNDERLINE_TEXT_FLAG);
         tvIrALogin.setOnClickListener(v -> {
             startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
             finish();
@@ -99,13 +102,13 @@ public class RegisterActivity extends AppCompatActivity {
         }
         if (!ok) return;
 
-        btnRegistrarse.setEnabled(false);   // evita el doble tap
+        mostrarCargando(true);   // evita el doble tap
         RegistroRequest body = new RegistroRequest(nombre, apellido, email, password, confirmar);
 
         ApiClient.getApiService().registro(body).enqueue(new Callback<RegistroResponse>() {
             @Override
             public void onResponse(Call<RegistroResponse> call, Response<RegistroResponse> response) {
-                btnRegistrarse.setEnabled(true);
+                mostrarCargando(false);
                 if (response.isSuccessful()) {
                     Toast.makeText(RegisterActivity.this, "Cuenta creada. Iniciá sesión.", Toast.LENGTH_LONG).show();
                     startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
@@ -117,10 +120,15 @@ public class RegisterActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<RegistroResponse> call, Throwable t) {
-                btnRegistrarse.setEnabled(true);
+                mostrarCargando(false);
                 Toast.makeText(RegisterActivity.this, "No se pudo conectar con el servidor", Toast.LENGTH_LONG).show();
             }
         });
+    }
+
+    private void mostrarCargando(boolean cargando) {
+        btnRegistrarse.setEnabled(!cargando);
+        btnRegistrarse.setText(cargando ? "Registrando..." : textoBotonRegistro);
     }
 
     // El backend responde errores como {"email": ["..."]} o {"password": "..."}

@@ -14,6 +14,7 @@ import com.ispc.testace.data.model.AuthResponse;
 import com.ispc.testace.data.model.ExamenCatalogo;
 import com.ispc.testace.data.model.FiltroItem;
 import com.ispc.testace.data.model.Perfil;
+import com.ispc.testace.data.model.Usuario;
 
 import java.util.List;
 import java.util.Map;
@@ -103,4 +104,17 @@ public interface  ApiService {
 
     @DELETE("examenes/{slug}/")
     Call<Void> deleteExamen(@Path("slug") String slug);
+
+    /* Usuarios Endpoints (panel de administración) */
+    @GET("usuarios/")
+    Call<List<Usuario>> getUsuarios();
+
+    @POST("usuarios/")
+    Call<Usuario> createUsuario(@Body Map<String, Object> datos);
+
+    @PATCH("usuarios/{id}/")
+    Call<Usuario> updateUsuario(@Path("id") int id, @Body Map<String, Object> datos);
+
+    @DELETE("usuarios/{id}/")
+    Call<Void> deleteUsuario(@Path("id") int id);
 }
