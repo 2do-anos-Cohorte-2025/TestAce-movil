@@ -7,6 +7,8 @@ import android.os.Looper;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.ispc.testace.data.local.TokenManager;
+import com.ispc.testace.ui.home.HomeActivity;
 import com.ispc.testace.ui.login.LoginActivity;
 
 public class SplashActivity extends AppCompatActivity {
@@ -18,9 +20,12 @@ public class SplashActivity extends AppCompatActivity {
 
         new Handler(Looper.getMainLooper()).postDelayed(() -> {
 
-            Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
-            startActivity(intent);
+            // Si ya hay sesión guardada va directo a Home, si no, al login
+            Class<?> destino = TokenManager.estaLogueado()
+                    ? HomeActivity.class
+                    : LoginActivity.class;
 
+            startActivity(new Intent(SplashActivity.this, destino));
             finish();
 
         }, 2000);

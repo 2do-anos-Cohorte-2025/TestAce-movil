@@ -4,23 +4,27 @@ import java.util.Date;
 
 public class IntentoExamen {
     private int id;
-    private Examen examen;
-    private Integer usuario; //Se debe remplazar por la clase Usuario
-    private Date fechaInicio;
-    private Date fechaFin;
+    private int examen;
+    private String examen_titulo;
+    private String examen_slug;
+    private Integer usuario;
+    private Date fecha_inicio;
+    private Date fecha_fin;
     private Double resultado;
+    public float tiempoTranscurrido;
 
-    public IntentoExamen(int id, Examen examen, Integer usuario) {
-        this.id = id;
+    public IntentoExamen(int examen, Integer usuario) {
         this.examen = examen;
         this.usuario = usuario;
-        this.fechaInicio = new Date();
+        /*this.fechaInicio = new Date();
         this.fechaFin = null;
-        this.resultado = null;
+        this.resultado = null;*/
     }
 
+
+
     public void finalizarIntento(double resultado) {
-        this.fechaFin = new Date();
+        this.fecha_fin = new Date();
         this.resultado = resultado;
     }
 
@@ -32,10 +36,10 @@ public class IntentoExamen {
         this.id = id;
     }
 
-    public Examen getExamen() {
+    public int getExamen() {
         return examen;
     }
-    public void setExamen(Examen examen) {
+    public void setExamen(int examen) {
         this.examen = examen;
     }
 
@@ -46,19 +50,36 @@ public class IntentoExamen {
     public void setUsuario(Integer usuario) {
         this.usuario = usuario;
     }
+
+    public String getExamen_titulo() {
+        return examen_titulo;
+    }
+
+    public void setExamen_titulo(String examen_titulo) {
+        this.examen_titulo = examen_titulo;
+    }
+
+    public String getExamen_slug() {
+        return examen_slug;
+    }
+
+    public void setExamen_slug(String examen_slug) {
+        this.examen_slug = examen_slug;
+    }
+
     public Date getFechaInicio() {
-        return fechaInicio;
+        return fecha_inicio;
     }
     public void setFechaInicio(Date fechaInicio){
-        this.fechaInicio=fechaInicio;
+        this.fecha_inicio=fechaInicio;
     }
 
     public Date getFechaFin() {
-        return fechaFin;
+        return fecha_fin;
     }
 
     public void setFechaFin(Date fechaFin) {
-        this.fechaFin = fechaFin;
+        this.fecha_fin = fechaFin;
     }
 
     public Double getResultado() {
@@ -66,5 +87,13 @@ public class IntentoExamen {
     }
     public void setResultado(Double resultado) {
         this.resultado = resultado;
+    }
+
+    public float getTiempoTranscurrido() {
+        return tiempoTranscurrido;
+    }
+
+    public void setTiempoTranscurrido(float tiempoTranscurrido) {
+        this.tiempoTranscurrido = tiempoTranscurrido;
     }
 }

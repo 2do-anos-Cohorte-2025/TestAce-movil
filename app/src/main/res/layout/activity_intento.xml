@@ -1,133 +1,113 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/intento_examen_fondo"
-    android:orientation="vertical"
-    android:padding="25dp"
-    android:textAlignment="center">
+    android:padding="16dp">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/intento_examen_fondo">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-
-        <LinearLayout
-            android:id="@+id/linearLayout"
-            android:layout_width="360dp"
-            android:layout_height="456dp"
-            android:layout_marginTop="40dp"
-            android:background="@color/rosa_claro"
-            android:backgroundTint="@color/rosa_claro"
-            android:orientation="vertical"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.428"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:circularflow_defaultRadius="12dp">
-
-            <TextView
-                android:id="@+id/tvTituloExamen"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="50dp"
-                android:textColor="@color/verde_oscuro"
-                android:textSize="30sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/tvDescripcionExamen"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="40dp"
-                android:textColor="@color/white" />
-
-            <TextView
-                android:id="@+id/tvPreguntaActual"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="40dp"
-                android:textAlignment="center"
-                android:textColor="@color/black"
-                android:textSize="25sp" />
-
-            <RadioGroup
-                android:id="@+id/rgOpciones"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="56dp"
-                android:orientation="vertical"
-                android:textColor="@color/black"
-                android:textSize="20sp">
-
-            </RadioGroup>
-
-            <TextView
-                android:id="@+id/tvExamenFinalizado"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Examen finalizado"
-                android:textColor="@color/verde_oscuro"
-                android:textSize="24sp"
-                android:textStyle="bold"
-                android:visibility="gone" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/linearLayout2"
-            android:layout_width="253dp"
-            android:layout_height="62dp"
-            android:layout_marginTop="36dp"
-            android:orientation="horizontal"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout">
-
-            <Button
-                android:id="@+id/btnAnterior"
-                android:layout_width="120dp"
-                android:layout_height="60dp"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginBottom="152dp"
-                android:backgroundTint="@color/verde_claro"
-                android:text="Anterior"
-                android:textColor="@color/rosa_claro"
-                app:cornerRadius="12dp"
-
-                />
-
-            <Button
-                android:id="@+id/btnSiguiente"
-                android:layout_width="124dp"
-                android:layout_height="59dp"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginLeft="8dp"
-                android:layout_marginBottom="152dp"
-                android:backgroundTint="@color/verde_claro"
-                android:text="Siguiente"
-                android:textColor="@color/rosa_claro"
-                app:cornerRadius="12dp"
-
-                />
-        </LinearLayout>
-
-        <Button
-            android:id="@+id/btnCancelar"
-            android:layout_width="wrap_content"
+        <!-- Nombre del examen -->
+        <TextView
+            android:id="@+id/textViewNombreExamen"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
-            android:backgroundTint="#812B2B"
-            android:text="Finalizar Intento"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/linearLayout2"
-            app:layout_constraintStart_toStartOf="@+id/linearLayout2"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
-            app:layout_constraintVertical_bias="1.0" />
+            android:textColor="#615951"
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        <!-- Tiempo restante -->
+        <TextView
+            android:id="@+id/textViewTiempoRestante"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#D81818"
+            android:textSize="20sp" />
 
-</LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewPreguntas"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:nestedScrollingEnabled="false"/>
+
+        <!-- Campo para respuesta de texto/número -->
+        <!--<EditText
+            android:id="@+id/editTextRespuestaTexto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:hint="Escribe tu respuesta aquí..."
+            android:inputType="text"
+            android:visibility="gone" />-->
+
+        <!-- Botones de navegación -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:weightSum="4">
+
+                <Button
+                    android:id="@+id/buttonAnterior"
+                    android:layout_width="20dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:backgroundTint="#4C3535"
+                    android:text="Anterior" />
+
+                <Button
+                    android:id="@+id/buttonSiguiente"
+                    android:layout_width="25dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:backgroundTint="#464C35"
+                    android:text="Siguiente" />
+
+            </LinearLayout>
+
+            <View
+                android:id="@+id/divider"
+                android:layout_width="match_parent"
+                android:layout_height="16dp" />
+
+            <Button
+                android:id="@+id/buttonCancelar"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:backgroundTint="#5C0808"
+                android:text="Cancelar"
+                android:textColor="#BFB6B6" />
+
+            <View
+                android:id="@+id/divider3"
+                android:layout_width="match_parent"
+                android:layout_height="10dp" />
+
+            <Button
+                android:id="@+id/buttonFinalizar"
+                android:layout_width="220dp"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/verde_beige"
+                android:text="Finalizar"
+                android:textColor="@color/black"
+                android:visibility="gone"
+                />
+        </LinearLayout>
+
+    </LinearLayout>
+</ScrollView>

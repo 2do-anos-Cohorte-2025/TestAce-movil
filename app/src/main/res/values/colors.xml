@@ -12,4 +12,6 @@
     <color name="fondo">#E1D0B5</color>
     <color name="beige_claro">#e7cba2</color>
     <color name="beige_oscuro">#a79375</color>
+    <color name="gris_cancelar">#757575</color>
+    <color name="rojo_eliminar">#D32F2F</color>
 </resources>

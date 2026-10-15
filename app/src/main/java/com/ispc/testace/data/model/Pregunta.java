@@ -1,22 +1,26 @@
 package com.ispc.testace.data.model;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class Pregunta {
     private int id;
+    @SerializedName("examen")
+    private int examen;
     private String enunciado;
     private String tipo;
     private double puntos;
-    private String imagenPregunta;
+    private String imagen_pregunta;
     private List<Opcion> opciones;
 
-    public Pregunta(int id, String enunciado, String tipo, double puntos, String imagenPregunta) {
+    public Pregunta(int id, String enunciado, String tipo, double puntos, String imagen_pregunta) {
         this.id = id;
         this.enunciado = enunciado;
         this.tipo = tipo;
         this.puntos = puntos;
-        this.imagenPregunta = imagenPregunta;
+        this.imagen_pregunta = imagen_pregunta;
         this.opciones = new ArrayList<>();
     }
 
@@ -29,6 +33,14 @@ public class Pregunta {
     }
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getExamen() {
+        return examen;
+    }
+
+    public void setExamen(int examen) {
+        this.examen = examen;
     }
 
     public String getEnunciado() {
@@ -52,11 +64,11 @@ public class Pregunta {
         this.puntos = puntos;
     }
 
-    public String getImagenPregunta() {
-        return imagenPregunta;
+    public String getImagen_pregunta() {
+        return imagen_pregunta;
     }
-    public void setImagenPregunta(String imagenPregunta) {
-        this.imagenPregunta = imagenPregunta;
+    public void setImagen_pregunta(String imagen_pregunta) {
+        this.imagen_pregunta = imagen_pregunta;
     }
 
     public List<Opcion> getOpciones() {

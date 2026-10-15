@@ -2,10 +2,9 @@ package com.ispc.testace.ui.home;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.view.Menu;
+import android.view.MenuItem;
 
-import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.navigation.NavController;
@@ -20,6 +19,10 @@ import com.ispc.testace.ui.perfil.ProfileActivity;
 import com.ispc.testace.ui.examenes.catalogo.CatalogoActivity;
 import com.ispc.testace.databinding.ActivityHomeBinding;
 import com.ispc.testace.ui.login.LoginActivity;
+import com.ispc.testace.ui.contacto.ContactoActivity;
+import com.ispc.testace.data.local.TokenManager;
+import com.ispc.testace.data.model.Usuario;
+import com.ispc.testace.ui.admin.AdminActivity;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -35,13 +38,8 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         setSupportActionBar(binding.appBarHome.toolbar);
-        binding.appBarHome.fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Contacto: próximamente", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+        binding.appBarHome.fab.setOnClickListener(view ->
+                startActivity(new Intent(HomeActivity.this, ContactoActivity.class)));
 
         DrawerLayout drawer = binding.drawerLayout;
         NavigationView navigationView = binding.navView;
@@ -66,8 +64,20 @@ public class HomeActivity extends AppCompatActivity {
             } else if (id == R.id.nav_catalogo) {
                 startActivity(new Intent(HomeActivity.this, CatalogoActivity.class));
                 handled = true;
+            } else if (id == R.id.nav_admin) {
+                startActivity(new Intent(HomeActivity.this, AdminActivity.class));
+                handled = true;
             } else if (id == R.id.nav_login) {
-                startActivity(new Intent(HomeActivity.this, LoginActivity.class));
+                if (TokenManager.estaLogueado()) {
+                    // Cierra sesión, borra el token y vuelve al login sin dejar Home en el historial
+                    TokenManager.cerrarSesion();
+                    Intent intent = new Intent(HomeActivity.this, LoginActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(intent);
+                    finish();
+                } else {
+                    startActivity(new Intent(HomeActivity.this, LoginActivity.class));
+                }
                 handled = true;
             } else {
                 handled = NavigationUI.onNavDestinationSelected(item, navController);
@@ -78,6 +88,24 @@ public class HomeActivity extends AppCompatActivity {
             }
             return handled;
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        actualizarItemSesion();
+        actualizarItemAdmin();
+    }
+
+    private void actualizarItemSesion() {
+        MenuItem item = binding.navView.getMenu().findItem(R.id.nav_login);
+        item.setTitle(TokenManager.estaLogueado() ? R.string.menu_logout : R.string.menu_login);
+    }
+    private void actualizarItemAdmin() {
+        Usuario u = TokenManager.getUsuario();
+        boolean esAdmin = TokenManager.estaLogueado() && u != null
+                && "administrador".equals(u.getRol());
+        binding.navView.getMenu().findItem(R.id.nav_admin).setVisible(esAdmin);
     }
 
     @Override

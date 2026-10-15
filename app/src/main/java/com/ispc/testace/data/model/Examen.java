@@ -6,6 +6,7 @@ import java.util.List;
 public class Examen {
     private int id;
     private String titulo;
+    private String slug;
     private String descripcion;
     private String categoria;
     private String nivel;
@@ -13,15 +14,8 @@ public class Examen {
     private String imagenExamen;
     private List<Pregunta> preguntas;
 
-    public Examen(int id, String titulo, String descripcion, String categoria, String nivel, int tiempoLimite, String imagenExamen) {
-        this.id = id;
-        this.titulo = titulo;
-        this.descripcion = descripcion;
-        this.categoria = categoria;
-        this.nivel = nivel;
-        this.tiempoLimite = tiempoLimite;
-        this.imagenExamen = imagenExamen;
-        this.preguntas = new ArrayList<>();
+    public Examen() {
+
     }
 
     public void agregarPregunta(Pregunta pregunta) {
@@ -43,6 +37,15 @@ public class Examen {
     public void setTitulo(String titulo){
         this.titulo=titulo;
     }
+
+    public String getSlug() {
+        return slug;
+    }
+
+    public void setSlug(String slug) {
+        this.slug = slug;
+    }
+
     public String getDescripcion(){
         return descripcion;
     }

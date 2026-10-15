@@ -16,6 +16,11 @@
             android:id="@+id/nav_catalogo"
             android:icon="@drawable/ic_catalogo"
             android:title="@string/menu_catalogo" />
+        <item
+            android:id="@+id/nav_admin"
+            android:icon="@drawable/ic_perfil"
+            android:title="@string/menu_admin"
+            android:visible="false" />
     </group>
 
     <group>
