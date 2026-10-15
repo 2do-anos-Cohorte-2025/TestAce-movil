@@ -47,4 +47,19 @@
     <string name="vista_previa_examen">Vista previa del examen</string>
     <string name="descripcion_vista_previa">Aquí se mostrará la información del examen seleccionado.</string>
     <string name="comenzar_examen">Comenzar examen</string>
+
+    <!-- Home -->
+    <string name="home_saludo_usuario">¡Hola, %1$s!</string>
+    <string name="home_saludo_invitado">¡Bienvenido/a!</string>
+    <string name="home_titulo">Preparate para tu próximo examen</string>
+    <string name="home_descripcion">Test Ace es tu simulador de exámenes interactivos. Practicá con evaluaciones de distintas materias y niveles, obtené resultados al instante y descubrí en qué podés mejorar.</string>
+    <string name="home_btn_explorar">Explorar catálogo</string>
+    <string name="home_seccion_titulo">¿Qué podés hacer en Test Ace?</string>
+    <string name="home_feat1_titulo">Practicá a tu ritmo</string>
+    <string name="home_feat1_desc">Elegí materia y nivel, y resolvé exámenes cuando quieras, sin presión.</string>
+    <string name="home_feat2_titulo">Resultados inmediatos</string>
+    <string name="home_feat2_desc">Al terminar un examen conocé tu puntaje al instante.</string>
+    <string name="home_feat3_titulo">Seguí tu progreso</string>
+    <string name="home_feat3_desc">Consultá tus intentos recientes desde tu perfil y reforzá lo que te falta.</string>
+    <string name="home_footer">Pensado para estudiantes y autodidactas.</string>
 </resources>
