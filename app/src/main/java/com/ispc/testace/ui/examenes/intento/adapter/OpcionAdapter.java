@@ -1,6 +1,6 @@
 package com.ispc.testace.ui.examenes.intento.adapter;
 
-
+import android.widget.CheckBox;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +19,8 @@ import java.util.List;
 public class OpcionAdapter extends RecyclerView.Adapter<OpcionAdapter.OpcionViewHolder>  {
     private List<Opcion> opciones;
     private OnOpcionSelectedListener listener;
+    private boolean permitirVariasRespuestas;
+
 
     public interface OnOpcionSelectedListener {
         void onOpcionSelected(int opcionId);
@@ -61,14 +63,31 @@ public class OpcionAdapter extends RecyclerView.Adapter<OpcionAdapter.OpcionView
         }
 
 
-        holder.radioButtonOpcion.setChecked(opcion.isSelected());
+        if (permitirVariasRespuestas) {
+            holder.radioButtonOpcion.setVisibility(View.GONE);
+            holder.checkBoxOpcion.setVisibility(View.VISIBLE);
 
-        // Configurar el clic en el RadioButton y en el itemView
-        holder.radioButtonOpcion.setOnClickListener(v -> {
-            if (listener != null) {
-                listener.onOpcionSelected(opcion.getId());
-            }
-        });
+            holder.checkBoxOpcion.setOnCheckedChangeListener(null);
+            holder.checkBoxOpcion.setChecked(opcion.isSelected());
+
+            holder.checkBoxOpcion.setOnCheckedChangeListener((buttonView, isChecked) -> {
+                if (listener != null) {
+                    listener.onOpcionSelected(opcion.getId());
+                }
+            });
+        } else {
+            holder.checkBoxOpcion.setVisibility(View.GONE);
+            holder.radioButtonOpcion.setVisibility(View.VISIBLE);
+
+            holder.radioButtonOpcion.setOnClickListener(null);
+            holder.radioButtonOpcion.setChecked(opcion.isSelected());
+
+            holder.radioButtonOpcion.setOnClickListener(v -> {
+                if (listener != null) {
+                    listener.onOpcionSelected(opcion.getId());
+                }
+            });
+        }
 
         holder.itemView.setOnClickListener(v -> {
             if (listener != null) {
@@ -87,15 +106,22 @@ public class OpcionAdapter extends RecyclerView.Adapter<OpcionAdapter.OpcionView
         notifyDataSetChanged();
     }
 
+    public void setPermitirVariasRespuestas(boolean permitir) {
+        this.permitirVariasRespuestas = permitir;
+        notifyDataSetChanged();
+    }
+
     static class OpcionViewHolder extends RecyclerView.ViewHolder {
         ImageView imageViewOpcion;
         TextView textViewOpcion;
         RadioButton radioButtonOpcion;
+        CheckBox checkBoxOpcion;
         public OpcionViewHolder(@NonNull View itemView) {
             super(itemView);
             imageViewOpcion = itemView.findViewById(R.id.imageViewOpcion);
             textViewOpcion = itemView.findViewById(R.id.textViewOpcion);
             radioButtonOpcion = itemView.findViewById(R.id.radioButtonOpcion);
+            checkBoxOpcion = itemView.findViewById(R.id.checkBoxOpcion);
         }
 
     }

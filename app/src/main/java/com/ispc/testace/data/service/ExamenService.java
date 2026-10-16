@@ -23,6 +23,14 @@ public class ExamenService {
         apiService.getExamenBySlug(slug).enqueue(callback);
     }
 
+    public void crearExamen(Examen examen, Callback<Examen> callback) {
+        apiService.createExamen(examen).enqueue(callback);
+    }
+
+    public retrofit2.Call<Examen> getExamenCall(String slug) {
+        return apiService.getExamenBySlug(slug);
+    }
+
 
     public void updateExamen(String slug, Map<String, Object> datos, Callback<Examen> callback) {
         apiService.updateExamen(slug, datos).enqueue(callback);

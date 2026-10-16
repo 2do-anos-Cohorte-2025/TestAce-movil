@@ -50,13 +50,10 @@ public class ExamenAdapter extends RecyclerView.Adapter<ExamenAdapter.ViewHolder
 
         h.tvNombre.setText(e.getTitulo());
         h.imgProfesor.setVisibility(e.isEsProfesor() ? View.VISIBLE : View.GONE);
-        h.tvCategoria.setText("Categoría: " +
-                (e.getCategoriaNombre() != null ? e.getCategoriaNombre() : "Sin categoría"));
-        h.tvNivel.setText("Nivel: " +
-                (e.getNivelNombre() != null ? e.getNivelNombre() : "Sin nivel"));
-        h.tvTiempo.setText(e.getTiempoLimite() != null
-                ? "Tiempo límite: " + e.getTiempoLimite() + " min"
-                : "Sin tiempo límite");
+        h.tvCategoria.setText(TarjetaExamenFormatter.categoria(e.getCategoriaNombre()));
+        h.tvNivel.setText(TarjetaExamenFormatter.nivel(e.getNivelNombre()));
+        h.tvTiempo.setText(TarjetaExamenFormatter.tiempoLimite(e.getTiempoLimite()));
+
 
         if (e.getImagenExamen() != null && !e.getImagenExamen().isEmpty()) {
             Glide.with(h.itemView.getContext())

@@ -133,6 +133,9 @@ public class IntentoAdapter extends RecyclerView.Adapter<IntentoAdapter.IntentoV
                 recyclerViewOpciones.setVisibility(View.VISIBLE);
                 editTextRespuestaTexto.setVisibility(View.GONE);
 
+                opcionAdapter.setPermitirVariasRespuestas(
+                        pregunta.isPermitir_varias_respuestas()
+                );
                 opcionAdapter.updateOpciones(opcionesActuales);
             } else if (pregunta.getTipo().equals("numerico") || pregunta.getTipo().equals("texto")) {
 

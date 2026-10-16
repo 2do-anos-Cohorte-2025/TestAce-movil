@@ -2,6 +2,7 @@ package com.ispc.testace.data.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import com.google.gson.annotations.SerializedName;
 
 public class Examen {
     private int id;
@@ -10,6 +11,7 @@ public class Examen {
     private String descripcion;
     private String categoria;
     private String nivel;
+    @SerializedName("tiempo_limite")
     private int tiempoLimite;
     private String imagenExamen;
     private List<Pregunta> preguntas;
