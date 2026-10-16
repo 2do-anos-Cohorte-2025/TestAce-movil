@@ -76,7 +76,7 @@ public class LoginActivity extends AppCompatActivity {
 
         Button btnOmitirLogin = findViewById(R.id.btnOmitirLogin);
         btnOmitirLogin.setOnClickListener(v -> {
-            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+            Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
             startActivity(intent);
             finish();
         });
