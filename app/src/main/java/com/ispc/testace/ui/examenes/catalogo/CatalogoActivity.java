@@ -5,11 +5,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.content.Intent;
 
-
 import com.ispc.testace.R;
 import com.google.android.material.chip.Chip;
 import android.widget.PopupMenu;
-import android.widget.Button;
 import android.widget.Toast;
 import androidx.appcompat.widget.Toolbar;
 import android.view.View;
@@ -31,10 +29,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 public class CatalogoActivity extends AppCompatActivity {
-
-    private String categoriaSel = null;
-    private String nivelSel = null;
-    private String creadorSel = null;
+    private final FiltrosCatalogo filtros = new FiltrosCatalogo();
 
     private final List<String> categorias = new ArrayList<>();
     private final List<String> niveles = new ArrayList<>();
@@ -46,7 +41,6 @@ public class CatalogoActivity extends AppCompatActivity {
     private ExamenAdapter adapter;
 
     private Call<List<ExamenCatalogo>> llamadaActual;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,7 +79,7 @@ public class CatalogoActivity extends AppCompatActivity {
                 return;
             }
             mostrarMenu(v, "Todas", categorias, elegido -> {
-                categoriaSel = elegido;
+                filtros.setCategoria(elegido);
                 chipCategoria.setText(elegido != null ? elegido : "Categoría");
                 cargarExamenes();
             });
@@ -98,29 +92,25 @@ public class CatalogoActivity extends AppCompatActivity {
                 return;
             }
             mostrarMenu(v, "Todos", niveles, elegido -> {
-                nivelSel = elegido;
+                filtros.setNivel(elegido);
                 chipNivel.setText(elegido != null ? elegido : "Nivel");
                 cargarExamenes();
             });
         });
 
         chipCreador.setOnClickListener(v -> {
-            // creador_array = Todos, Estudiante, Profesor (ya existe en strings.xml)
             List<String> opciones = new ArrayList<>(
                     Arrays.asList(getResources().getStringArray(R.array.creador_array)));
-            opciones.remove(0); // sacamos "Todos": el menú agrega su propia opción
+            opciones.remove(0);
             mostrarMenu(v, "Todos", opciones, elegido -> {
-                // Django espera 'profesor' o 'estudiante' en minúscula
-                creadorSel = elegido != null ? elegido.toLowerCase() : null;
+                filtros.setCreador(elegido);
                 chipCreador.setText(elegido != null ? elegido : "Creador");
                 cargarExamenes();
             });
         });
 
         chipLimpiar.setOnClickListener(v -> {
-            categoriaSel = null;
-            nivelSel = null;
-            creadorSel = null;
+            filtros.limpiar();
             chipCategoria.setText("Categoría");
             chipNivel.setText("Nivel");
             chipCreador.setText("Creador");
@@ -175,9 +165,9 @@ public class CatalogoActivity extends AppCompatActivity {
 
         progress.setVisibility(View.VISIBLE);
         tvVacio.setVisibility(View.GONE);
-
         llamadaActual = ApiClient.getApiService()
-                .getExamenesCatalogo (categoriaSel, nivelSel, creadorSel, null);
+                .getExamenesCatalogo(filtros.getCategoria(), filtros.getNivel(),
+                        filtros.getCreador(), null);
 
         llamadaActual.enqueue(new Callback<List<ExamenCatalogo>>() {
             @Override
