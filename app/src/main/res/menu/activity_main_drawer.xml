@@ -17,6 +17,11 @@
             android:icon="@drawable/ic_catalogo"
             android:title="@string/menu_catalogo" />
         <item
+            android:id="@+id/nav_crear_examen"
+            android:icon="@drawable/ic_catalogo"
+            android:title="Crear examen"
+            android:visible="false" />
+        <item
             android:id="@+id/nav_admin"
             android:icon="@drawable/ic_perfil"
             android:title="@string/menu_admin"
