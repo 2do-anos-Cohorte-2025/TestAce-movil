@@ -64,6 +64,13 @@
         <activity
             android:name=".ui.examenes.intento.IntentoActivity"
             android:exported="false" />
+        <activity
+            android:name=".ui.examenes.CrearExamenActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.examenes.CrearPreguntasActivity"
+            android:exported="false" />
+
     </application>
 
 </manifest>

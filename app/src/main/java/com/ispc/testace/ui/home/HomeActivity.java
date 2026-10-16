@@ -13,6 +13,7 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
+import com.ispc.testace.ui.examenes.CrearExamenActivity;
 
 import com.ispc.testace.R;
 import com.ispc.testace.ui.perfil.ProfileActivity;
@@ -29,6 +30,11 @@ public class HomeActivity extends AppCompatActivity {
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityHomeBinding binding;
     private NavController navController;
+
+    private void actualizarItemCrearExamen() {
+        MenuItem item = binding.navView.getMenu().findItem(R.id.nav_crear_examen);
+        item.setVisible(TokenManager.estaLogueado());
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +70,9 @@ public class HomeActivity extends AppCompatActivity {
             } else if (id == R.id.nav_catalogo) {
                 startActivity(new Intent(HomeActivity.this, CatalogoActivity.class));
                 handled = true;
+            } else if (id == R.id.nav_crear_examen) {
+                startActivity(new Intent(HomeActivity.this, CrearExamenActivity.class));
+                handled = true;
             } else if (id == R.id.nav_admin) {
                 startActivity(new Intent(HomeActivity.this, AdminActivity.class));
                 handled = true;
@@ -95,6 +104,7 @@ public class HomeActivity extends AppCompatActivity {
         super.onResume();
         actualizarItemSesion();
         actualizarItemAdmin();
+        actualizarItemCrearExamen();
     }
 
     private void actualizarItemSesion() {

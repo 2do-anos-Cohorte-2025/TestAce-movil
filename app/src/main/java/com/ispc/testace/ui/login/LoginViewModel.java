@@ -20,7 +20,11 @@ public class LoginViewModel extends ViewModel {
     private final MutableLiveData<Boolean> loginExitoso = new MutableLiveData<>(false);
 
     public LoginViewModel() {
-        this.authRepository = new AuthRepository();
+        this(new AuthRepository());
+    }
+
+    LoginViewModel(AuthRepository authRepository) {
+        this.authRepository = authRepository;
     }
 
     public LiveData<Boolean> isLoading() {

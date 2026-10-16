@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="24dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Crear examen"
+            android:textSize="26sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="24dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Título del examen"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/edtTituloExamen"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Ej.: Lengua y literatura"
+            android:inputType="textCapSentences"
+            android:layout_marginBottom="16dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Descripción"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/edtDescripcionExamen"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Describí de qué trata el examen"
+            android:inputType="textCapSentences|textMultiLine"
+            android:minLines="3"
+            android:gravity="top|start"
+            android:layout_marginBottom="16dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Tiempo límite (minutos)"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/edtTiempoLimite"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Ej.: 30"
+            android:inputType="number"
+            android:layout_marginBottom="24dp" />
+
+        <Button
+            android:id="@+id/btnCrearExamen"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Crear examen" />
+
+        <Button
+            android:id="@+id/btnVolver"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="← Volver" />
+
+    </LinearLayout>
+</ScrollView>

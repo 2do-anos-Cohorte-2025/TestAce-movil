@@ -11,9 +11,14 @@ public class Pregunta {
     private int examen;
     private String enunciado;
     private String tipo;
+    private boolean permitir_varias_respuestas = false;
     private double puntos;
     private String imagen_pregunta;
     private List<Opcion> opciones;
+
+    public Pregunta() {
+        this.opciones = new ArrayList<>();
+    }
 
     public Pregunta(int id, String enunciado, String tipo, double puntos, String imagen_pregunta) {
         this.id = id;
@@ -55,6 +60,13 @@ public class Pregunta {
     }
     public void setTipo(String tipo) {
         this.tipo = tipo;
+    }
+
+    public boolean isPermitir_varias_respuestas() {
+        return permitir_varias_respuestas;
+    }
+    public void setPermitir_varias_respuestas(boolean permitir_varias_respuestas) {
+        this.permitir_varias_respuestas = permitir_varias_respuestas;
     }
 
     public double getPuntos() {

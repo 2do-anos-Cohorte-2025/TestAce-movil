@@ -26,9 +26,16 @@ public class ModificarExamenViewModel extends ViewModel {
 
 
     public ModificarExamenViewModel() {
-        this.examenRepository = new ExamenRepository();
-        this.preguntaRepository = new PreguntaRepository();
-        this.opcionRepository = new OpcionRepository();
+        this(new ExamenRepository(), new PreguntaRepository(), new OpcionRepository());
+    }
+
+    // Lo usan los tests para inyectar mocks
+    public ModificarExamenViewModel(ExamenRepository examenRepository,
+                                    PreguntaRepository preguntaRepository,
+                                    OpcionRepository opcionRepository) {
+        this.examenRepository = examenRepository;
+        this.preguntaRepository = preguntaRepository;
+        this.opcionRepository = opcionRepository;
     }
     private final MutableLiveData<Examen> examen =
             new MutableLiveData<>();

@@ -2,6 +2,7 @@ package com.ispc.testace.ui.examenes.intento.adapter;
 
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -132,6 +133,9 @@ public class IntentoAdapter extends RecyclerView.Adapter<IntentoAdapter.IntentoV
                 recyclerViewOpciones.setVisibility(View.VISIBLE);
                 editTextRespuestaTexto.setVisibility(View.GONE);
 
+                opcionAdapter.setPermitirVariasRespuestas(
+                        pregunta.isPermitir_varias_respuestas()
+                );
                 opcionAdapter.updateOpciones(opcionesActuales);
             } else if (pregunta.getTipo().equals("numerico") || pregunta.getTipo().equals("texto")) {
 

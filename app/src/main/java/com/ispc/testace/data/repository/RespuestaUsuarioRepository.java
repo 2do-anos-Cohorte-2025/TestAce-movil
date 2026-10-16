@@ -16,6 +16,9 @@ public class RespuestaUsuarioRepository {
     public void createRespuestaUsuario(RespuestaUsuario respuesta, Callback<RespuestaUsuario> callback) {
         respuestaUsuarioService.createRespuestaUsuario(respuesta, callback);
     }
+    public void deleteRespuestaUsuario(int respuestaId, Callback<Void> callback) {
+        respuestaUsuarioService.deleteRespuestaUsuario(respuestaId, callback);
+    }
 }
 
 
