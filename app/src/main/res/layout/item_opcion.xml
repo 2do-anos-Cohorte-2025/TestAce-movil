@@ -41,11 +41,20 @@
                 android:textSize="16sp" />
 
             <!-- RadioButton -->
+            <!-- RadioButton para respuesta única -->
             <RadioButton
                 android:id="@+id/radioButtonOpcion"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:buttonTint="#141C10" />
+
+            <!-- CheckBox para selección múltiple -->
+            <CheckBox
+                android:id="@+id/checkBoxOpcion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:buttonTint="#141C10"
+                android:visibility="gone" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 </LinearLayout>

@@ -67,9 +67,12 @@ public interface  ApiService {
     @PATCH("opciones/{id}/")
     Call<Opcion> updateOpcion(@Path("id") int id, @Body Map<String, Object> datos);
     /* Respuestas Endoints */
+    /* Respuestas Endpoints */
     @POST("respuestas/")
     Call<RespuestaUsuario> createRespuestaUsuario(@Body RespuestaUsuario respuesta);
 
+    @DELETE("respuestas/{id}/")
+    Call<Void> deleteRespuestaUsuario(@Path("id") int respuestaId);
 
     /*Autenticación Endpoints */
     @POST("auth/login/")
@@ -117,4 +120,14 @@ public interface  ApiService {
 
     @DELETE("usuarios/{id}/")
     Call<Void> deleteUsuario(@Path("id") int id);
+
+    // Preguntas
+    // Crear una pregunta
+    @POST("preguntas/")
+    Call<Pregunta> createPregunta(@Body Pregunta pregunta);
+
+    // Crear una opción de respuesta
+    @POST("opciones/")
+    Call<Opcion> createOpcion(@Body Map<String, Object> opcion);
+
 }

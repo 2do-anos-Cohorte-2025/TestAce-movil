@@ -3,6 +3,9 @@ package com.ispc.testace.ui.examenes.intento;
 
 import android.util.Log;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -52,7 +55,7 @@ public class IntentoViewModel extends ViewModel{
 
     private final MutableLiveData<Boolean> isLoading = new MutableLiveData<>(false);
     private final MutableLiveData<String> errorMessage = new MutableLiveData<>();
-    private final MutableLiveData<Map<Integer, Integer>> respuestasSeleccionadas = new MutableLiveData<>(new HashMap<>());
+    private final MutableLiveData<Map<Integer, Set<Integer>>> respuestasSeleccionadas = new MutableLiveData<>(new HashMap<>());
     private final MutableLiveData<Map<Integer, String>> respuestasTexto = new MutableLiveData<>(new HashMap<>());
     private final MutableLiveData<Double> resultadoLiveData = new MutableLiveData<>();
     private final MutableLiveData<Float> tiempoTranscurridoLiveData = new MutableLiveData<>();
@@ -214,37 +217,56 @@ public class IntentoViewModel extends ViewModel{
     }
 
     public void guardarSeleccionOpcion(int preguntaId, int opcionId) {
-        Map<Integer, Integer> respuestas = respuestasSeleccionadas.getValue();
+        Map<Integer, Set<Integer>> respuestas = respuestasSeleccionadas.getValue();
 
         if (respuestas == null) {
             respuestas = new HashMap<>();
         }
-        respuestas.put(preguntaId, opcionId);
+
+        Set<Integer> opcionesPregunta = respuestas.get(preguntaId);
+
+        if (opcionesPregunta == null) {
+            opcionesPregunta = new HashSet<>();
+        }
+
+        if (opcionesPregunta.contains(opcionId)) {
+            opcionesPregunta.remove(opcionId);
+        } else {
+            opcionesPregunta.add(opcionId);
+        }
+
+        respuestas.put(preguntaId, opcionesPregunta);
         respuestasSeleccionadas.setValue(respuestas);
 
-
         List<Opcion> opciones = opcionesLiveData.getValue();
+
         if (opciones != null) {
             for (Opcion opcion : opciones) {
-                if (opcion.getId() == opcionId) {
-                    opcion.setSelected(true);
-                } else {
-                    opcion.setSelected(false);
-                }
+                opcion.setSelected(opcionesPregunta.contains(opcion.getId()));
             }
+
             opcionesLiveData.setValue(opciones);
         }
     }
 
     public boolean hayOpcionSeleccionada(int preguntaId) {
-        Map<Integer, Integer> respuestas = respuestasSeleccionadas.getValue();
-        return respuestas != null && respuestas.containsKey(preguntaId);
+        Map<Integer, Set<Integer>> respuestas = respuestasSeleccionadas.getValue();
 
+        if (respuestas == null || respuestas.get(preguntaId) == null) {
+            return false;
+        }
+
+        return !respuestas.get(preguntaId).isEmpty();
     }
 
-    public Integer getOpcionSeleccionada(int preguntaId) {
-        Map<Integer, Integer> respuestas = respuestasSeleccionadas.getValue();
-        return respuestas != null ? respuestas.get(preguntaId) : null;
+    public Set<Integer> getOpcionesSeleccionadas(int preguntaId) {
+        Map<Integer, Set<Integer>> respuestas = respuestasSeleccionadas.getValue();
+
+        if (respuestas == null || respuestas.get(preguntaId) == null) {
+            return new HashSet<>();
+        }
+
+        return new HashSet<>(respuestas.get(preguntaId));
     }
     public void guardarRespuestaTexto(int preguntaId, String texto) {
         Map<Integer, String> respuestas = respuestasTexto.getValue();
@@ -291,15 +313,12 @@ public class IntentoViewModel extends ViewModel{
                     opcionesLiveData.setValue(response.body());
                     if (opciones != null) {
                         // Se obtiene la opcion que se había elegido
-                        Integer opcionSeleccionadaId = getOpcionSeleccionada(preguntaId);
-                        if (opcionSeleccionadaId != null) {
-                            for (Opcion opcion : opciones) {
-                                if (opcion.getId() == opcionSeleccionadaId) {
-                                    opcion.setSelected(true);
-                                    break;
-                                }
-                            }
+                        Set<Integer> seleccionadas = getOpcionesSeleccionadas(preguntaId);
+
+                        for (Opcion opcion : opciones) {
+                            opcion.setSelected(seleccionadas.contains(opcion.getId()));
                         }
+
                         opcionesLiveData.setValue(opciones);
                     }
                 } else {

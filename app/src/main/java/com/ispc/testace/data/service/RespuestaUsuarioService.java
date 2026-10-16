@@ -17,4 +17,7 @@ public class RespuestaUsuarioService {
     public void createRespuestaUsuario(RespuestaUsuario respuesta, Callback<RespuestaUsuario> callback) {
         apiService.createRespuestaUsuario(respuesta).enqueue(callback);
     }
+    public void deleteRespuestaUsuario(int respuestaId, Callback<Void> callback) {
+        apiService.deleteRespuestaUsuario(respuestaId).enqueue(callback);
+    }
 }

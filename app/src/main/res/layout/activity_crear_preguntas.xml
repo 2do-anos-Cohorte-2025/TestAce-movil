@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:background="#F5EFE3">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="24dp">
+
+        <Button
+            android:id="@+id/btnVolver"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="← Volver"
+            android:textColor="#4A3828"
+            android:backgroundTint="#E5D8C5"
+            android:layout_marginBottom="12dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Crear preguntas"
+            android:textColor="#202124"
+            android:textSize="26sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="8dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Escribí una pregunta y agregá sus opciones de respuesta."
+            android:textColor="#666666"
+            android:textSize="15sp"
+            android:layout_marginBottom="24dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Enunciado de la pregunta"
+            android:textColor="#202124"
+            android:textStyle="bold"
+            android:layout_marginBottom="8dp" />
+
+        <EditText
+            android:id="@+id/edtEnunciadoPregunta"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Escribí tu pregunta..."
+            android:inputType="textCapSentences|textMultiLine"
+            android:minHeight="100dp"
+            android:gravity="top|start"
+            android:padding="12dp"
+            android:background="@android:drawable/edit_text"
+            android:layout_marginBottom="20dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Opciones de respuesta"
+            android:textColor="#202124"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:layout_marginBottom="8dp" />
+
+        <LinearLayout
+            android:id="@+id/contenedorOpciones"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
+
+        <Button
+            android:id="@+id/btnAgregarOpcion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="+ Agregar opción"
+            android:layout_marginTop="8dp" />
+
+        <Button
+            android:id="@+id/btnPreguntaAnterior"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="← Pregunta anterior"
+            android:backgroundTint="#E5D8C5"
+            android:textColor="#4A3828"
+            android:layout_marginTop="12dp" />
+
+        <CheckBox
+            android:id="@+id/chkVariasRespuestas"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Permitir varias respuestas correctas"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="24dp" />
+
+        <Button
+            android:id="@+id/btnCrearPregunta"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Crear pregunta" />
+
+
+        <Button
+            android:id="@+id/btnFinalizarExamen"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Finalizar examen"
+            android:backgroundTint="#6B4F3A"
+            android:textColor="#FFFFFF"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp" />
+
+
+    </LinearLayout>
+
+</ScrollView>
