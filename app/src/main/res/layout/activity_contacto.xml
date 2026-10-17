@@ -52,8 +52,8 @@
                 android:inputType="textPersonName"
                 android:hint="Nombre completo"
                 android:padding="13dp"
-                android:background="@android:drawable/editbox_background_normal"
-                android:textColor="@color/verde_claro"
+                android:background="@drawable/bg_campo_contacto"
+                android:textColor="@color/verde_oscuro"
                 android:layout_marginBottom="16dp" />
 
             <TextView
@@ -72,8 +72,8 @@
                 android:inputType="textEmailAddress"
                 android:hint="tu@email.com"
                 android:padding="13dp"
-                android:background="@android:drawable/editbox_background_normal"
-                android:textColor="@color/verde_claro"
+                android:background="@drawable/bg_campo_contacto"
+                android:textColor="@color/verde_oscuro"
                 android:layout_marginBottom="16dp" />
 
             <TextView
@@ -92,8 +92,8 @@
                 android:inputType="text"
                 android:hint="Asunto"
                 android:padding="13dp"
-                android:background="@android:drawable/editbox_background_normal"
-                android:textColor="@color/verde_claro"
+                android:background="@drawable/bg_campo_contacto"
+                android:textColor="@color/verde_oscuro"
                 android:layout_marginBottom="16dp" />
 
             <TextView
@@ -113,8 +113,8 @@
                 android:hint="Escribí tu mensaje"
                 android:gravity="top|start"
                 android:padding="13dp"
-                android:background="@android:drawable/editbox_background_normal"
-                android:textColor="@color/verde_claro"
+                android:background="@drawable/bg_campo_contacto"
+                android:textColor="@color/verde_oscuro"
                 android:layout_marginBottom="24dp" />
 
             <Button
