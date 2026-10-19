@@ -45,8 +45,8 @@
         android:inputType="textEmailAddress"
         android:paddingStart="16dp"
         android:paddingEnd="16dp"
-        android:background="@android:drawable/editbox_background_normal"
-        android:textColor="@color/verde_claro"
+        android:background="@drawable/bg_campo_contacto"
+        android:textColor="@color/verde_oscuro"
 
         android:layout_marginBottom="16dp" />
 
@@ -63,8 +63,8 @@
         android:paddingStart="16dp"
         android:paddingEnd="16dp"
 
-        android:background="@android:drawable/editbox_background_normal"
-        android:textColor="@color/verde_claro"
+        android:background="@drawable/bg_campo_contacto"
+        android:textColor="@color/verde_oscuro"
 
         android:layout_marginBottom="24dp" />
 
