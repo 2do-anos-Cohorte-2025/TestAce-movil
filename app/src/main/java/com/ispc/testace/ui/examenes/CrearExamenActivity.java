@@ -6,6 +6,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.appcompat.widget.Toolbar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.ispc.testace.R;
@@ -31,7 +32,10 @@ public class CrearExamenActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_crear_examen);
-        findViewById(R.id.btnVolver).setOnClickListener(v -> finish());
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        toolbar.setNavigationIcon(androidx.appcompat.R.drawable.abc_ic_ab_back_material);
+        toolbar.setNavigationContentDescription("Volver");
+        toolbar.setNavigationOnClickListener(v -> finish());
 
         edtTitulo = findViewById(R.id.edtTituloExamen);
         edtDescripcion = findViewById(R.id.edtDescripcionExamen);
