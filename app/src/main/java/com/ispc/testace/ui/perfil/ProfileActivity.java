@@ -3,12 +3,15 @@ package com.ispc.testace.ui.perfil;
 import android.content.Intent;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
+import android.view.GestureDetector;
 import android.view.Gravity;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -42,6 +45,9 @@ public class ProfileActivity extends AppCompatActivity {
 
     private LinearLayout layoutPerfil;
     private LinearLayout layoutExamenes;
+    private TabLayout tabLayout;
+    private ScrollView scrollContenido;
+    private GestureDetector detectorGestos;
     private LinearLayout contenedorIntentos;
 
     private EditText etEmail;
@@ -58,7 +64,7 @@ public class ProfileActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // El perfil necesita sesión: sin token, se manda al login.
+        // El perfil necesita sesión: sin token, manda al login.
         if (!TokenManager.estaLogueado()) {
             Toast.makeText(this, "Iniciá sesión para ver tu perfil", Toast.LENGTH_SHORT).show();
             startActivity(new Intent(this, LoginActivity.class));
@@ -87,7 +93,9 @@ public class ProfileActivity extends AppCompatActivity {
         tvNombreCompleto = findViewById(R.id.tvNombreCompleto);
         imgProfesor = findViewById(R.id.imgProfesor);
 
+        scrollContenido = findViewById(R.id.scrollContenido);
         setupTabs();
+        setupSwipe();
         findViewById(R.id.btnEditNombre).setOnClickListener(v -> enableEditing(etNombre));
         findViewById(R.id.btnEditApellido).setOnClickListener(v -> enableEditing(etApellido));
         btnGuardar.setOnClickListener(v -> guardarPerfil());
@@ -101,9 +109,9 @@ public class ProfileActivity extends AppCompatActivity {
     // ------------------------------------------------------------- Tabs
 
     private void setupTabs() {
-        TabLayout tabLayout = findViewById(R.id.tabLayoutProfile);
+        tabLayout = findViewById(R.id.tabLayoutProfile);
 
-        // Línea vertical que separa "Perfil" de "Exámenes recientes"
+        // Separador de  "Perfil" de "Exámenes recientes"
         LinearLayout pestanias = (LinearLayout) tabLayout.getChildAt(0);
         GradientDrawable separador = new GradientDrawable();
         separador.setColor(ContextCompat.getColor(this, R.color.verde_claro));
@@ -118,6 +126,7 @@ public class ProfileActivity extends AppCompatActivity {
                 boolean perfil = tab.getPosition() == 0;
                 layoutPerfil.setVisibility(perfil ? View.VISIBLE : View.GONE);
                 layoutExamenes.setVisibility(perfil ? View.GONE : View.VISIBLE);
+                scrollContenido.scrollTo(0, 0); // cada pestaña arranca desde arriba
             }
 
             @Override
@@ -126,6 +135,38 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public void onTabReselected(TabLayout.Tab tab) { }
         });
+    }
+
+    // ------------------------------------------------- Deslizar entre pestañas
+
+    /** Deslizar a la izquierda va a "Exámenes recientes", hacerlo a la derecha vuelve a "Perfil". */
+    private void setupSwipe() {
+        detectorGestos = new GestureDetector(this, new GestureDetector.SimpleOnGestureListener() {
+            @Override
+            public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+                if (e1 == null || e2 == null) return false;
+                float dx = e2.getX() - e1.getX();
+                float dy = e2.getY() - e1.getY();
+
+                // Para evitar cambios de pestañas accidentales
+                boolean esHorizontal = Math.abs(dx) > Math.abs(dy) * 1.5f;
+                boolean esLargo = Math.abs(dx) > dp(65);
+                boolean esRapido = Math.abs(velocityX) > dp(150);
+                if (!esHorizontal || !esLargo || !esRapido) return false;
+
+                int destino = tabLayout.getSelectedTabPosition() + (dx < 0 ? 1 : -1);
+                TabLayout.Tab tab = tabLayout.getTabAt(destino); // null si no existe esa pestaña
+                if (tab != null) tab.select();
+                return true;
+            }
+        });
+    }
+
+    /** Escucha gestos de la pantalla sin quitarle los toques a los demás elementos. */
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        if (detectorGestos != null) detectorGestos.onTouchEvent(ev);
+        return super.dispatchTouchEvent(ev);
     }
 
     // ----------------------------------------------------- Perfil (CRUD)
@@ -226,7 +267,7 @@ public class ProfileActivity extends AppCompatActivity {
         });
     }
 
-    /** Muestra "Nombre Apellido" y, si el usuario es profesor, el gorrito al lado. */
+    /** Muestra "Nombre Apellido", si el usuario es profesor, gorrito. */
     private void mostrarEncabezado(String nombre, String apellido, String rolUsuario) {
         String completo = ((nombre == null ? "" : nombre) + " " + (apellido == null ? "" : apellido)).trim();
         tvNombreCompleto.setText(completo);
@@ -241,7 +282,7 @@ public class ProfileActivity extends AppCompatActivity {
 
     // -------------------------------------------------- Panel de examen
 
-    /** Exámenes recientes = intentos que ya vienen dentro de auth/perfil/ */
+    /** Exámenes recientes */
     private void mostrarIntentos(List<IntentoExamen> intentos) {
         contenedorIntentos.removeAllViews();
         if (intentos == null || intentos.isEmpty()) {

@@ -1,246 +1,255 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/beige_claro"
-    android:fillViewport="true"
+    android:orientation="vertical"
     android:theme="@style/Theme.Material3.Light.NoActionBar">
 
-    <LinearLayout
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/verde_claro"
+        app:title=" " />
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabLayoutProfile"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:background="@color/beige_claro"
+        app:tabIndicatorColor="@color/verde_oscuro"
+        app:tabIndicatorHeight="3dp"
+        app:tabSelectedTextColor="@color/verde_oscuro"
+        app:tabTextColor="@color/verde_claro">
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="@color/verde_claro"
-            app:title=" " />
-
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/tabLayoutProfile"
-            android:layout_width="match_parent"
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@color/beige_claro"
-            app:tabIndicatorColor="@color/verde_oscuro"
-            app:tabIndicatorHeight="3dp"
-            app:tabSelectedTextColor="@color/verde_oscuro"
-            app:tabTextColor="@color/verde_claro">
+            android:text="Perfil" />
 
-            <com.google.android.material.tabs.TabItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Perfil" />
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Exámenes recientes" />
+    </com.google.android.material.tabs.TabLayout>
 
-            <com.google.android.material.tabs.TabItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Exámenes recientes" />
-        </com.google.android.material.tabs.TabLayout>
+    <!-- Contenido deslizable (vertical); la barra y las pestañas quedan fijas -->
+    <ScrollView
+        android:id="@+id/scrollContenido"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fillViewport="true">
 
-        <!-- ======================= PERFIL ======================= -->
         <LinearLayout
-            android:id="@+id/layoutPerfil"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="24dp"
-            android:visibility="visible">
+            android:orientation="vertical">
 
-            <ImageView
-                android:id="@+id/ivProfilePhoto"
-                android:layout_width="120dp"
-                android:layout_height="120dp"
-                android:layout_gravity="center_horizontal"
-                android:contentDescription="Foto de perfil"
-                android:src="@drawable/ic_person_placeholder" />
-
-            <!-- Nombre completo + gorrito si es profesor -->
+            <!-- ======================= PERFIL ======================= -->
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:id="@+id/layoutPerfil"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="12dp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/tvNombreCompleto"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/verde_oscuro"
-                    android:textSize="22sp"
-                    android:textStyle="bold" />
+                android:orientation="vertical"
+                android:padding="24dp"
+                android:visibility="visible">
 
                 <ImageView
-                    android:id="@+id/imgProfesor"
-                    android:layout_width="26dp"
-                    android:layout_height="26dp"
-                    android:layout_marginStart="6dp"
-                    android:contentDescription="Usuario profesor"
-                    android:src="@drawable/profesor"
-                    android:visibility="gone" />
+                    android:id="@+id/ivProfilePhoto"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    android:layout_gravity="center_horizontal"
+                    android:contentDescription="Foto de perfil"
+                    android:src="@drawable/ic_person_placeholder" />
+
+                <!-- Nombre completo + gorrito si es profesor -->
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="12dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tvNombreCompleto"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/verde_oscuro"
+                        android:textSize="22sp"
+                        android:textStyle="bold" />
+
+                    <ImageView
+                        android:id="@+id/imgProfesor"
+                        android:layout_width="26dp"
+                        android:layout_height="26dp"
+                        android:layout_marginStart="6dp"
+                        android:contentDescription="Usuario profesor"
+                        android:src="@drawable/profesor"
+                        android:visibility="gone" />
+                </LinearLayout>
+
+                <!-- Correo (solo lectura: el backend lo usa como username) -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:text="Correo electrónico"
+                    android:textColor="@color/verde_oscuro"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/etEmail"
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:layout_marginTop="6dp"
+                    android:background="@drawable/bg_campo_perfil"
+                    android:enabled="false"
+                    android:inputType="textEmailAddress"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp"
+                    android:textColor="@color/verde_oscuro"
+                    android:textSize="16sp" />
+
+                <!-- Nombre -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="Nombre"
+                    android:textColor="@color/verde_oscuro"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/etNombre"
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:layout_marginTop="6dp"
+                    android:background="@drawable/bg_campo_perfil"
+                    android:enabled="false"
+                    android:inputType="textPersonName"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp"
+                    android:textColor="@color/verde_oscuro"
+                    android:textSize="16sp" />
+
+                <Button
+                    android:id="@+id/btnEditNombre"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:layout_marginTop="6dp"
+                    android:backgroundTint="@color/verde_claro"
+                    android:text="Editar"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    app:cornerRadius="12dp" />
+
+                <!-- Apellido -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="Apellido"
+                    android:textColor="@color/verde_oscuro"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/etApellido"
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:layout_marginTop="6dp"
+                    android:background="@drawable/bg_campo_perfil"
+                    android:enabled="false"
+                    android:inputType="textPersonName"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp"
+                    android:textColor="@color/verde_oscuro"
+                    android:textSize="16sp" />
+
+                <Button
+                    android:id="@+id/btnEditApellido"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:layout_marginTop="6dp"
+                    android:backgroundTint="@color/verde_claro"
+                    android:text="Editar"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    app:cornerRadius="12dp" />
+
+                <!-- Guardar -->
+                <Button
+                    android:id="@+id/btnGuardar"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:layout_marginTop="24dp"
+                    android:backgroundTint="@color/verde_claro"
+                    android:text="Guardar"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:cornerRadius="12dp" />
+
+                <!-- Eliminar cuenta -->
+                <Button
+                    android:id="@+id/btnEliminarCuenta"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:layout_marginTop="32dp"
+                    android:backgroundTint="@color/rosa"
+                    android:text="Eliminar Cuenta"
+                    android:textColor="@color/verde_oscuro"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:cornerRadius="12dp" />
+
             </LinearLayout>
 
-            <!-- Correo (solo lectura: el backend lo usa como username) -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:text="Correo electrónico"
-                android:textColor="@color/verde_oscuro"
-                android:textSize="14sp"
-                android:textStyle="bold" />
-
-            <EditText
-                android:id="@+id/etEmail"
-                android:layout_width="match_parent"
-                android:layout_height="52dp"
-                android:layout_marginTop="6dp"
-                android:background="@drawable/bg_campo_perfil"
-                android:enabled="false"
-                android:inputType="textEmailAddress"
-                android:paddingStart="16dp"
-                android:paddingEnd="16dp"
-                android:textColor="@color/verde_oscuro"
-                android:textSize="16sp" />
-
-            <!-- Nombre -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="Nombre"
-                android:textColor="@color/verde_oscuro"
-                android:textSize="14sp"
-                android:textStyle="bold" />
-
-            <EditText
-                android:id="@+id/etNombre"
-                android:layout_width="match_parent"
-                android:layout_height="52dp"
-                android:layout_marginTop="6dp"
-                android:background="@drawable/bg_campo_perfil"
-                android:enabled="false"
-                android:inputType="textPersonName"
-                android:paddingStart="16dp"
-                android:paddingEnd="16dp"
-                android:textColor="@color/verde_oscuro"
-                android:textSize="16sp" />
-
-            <Button
-                android:id="@+id/btnEditNombre"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end"
-                android:layout_marginTop="6dp"
-                android:backgroundTint="@color/verde_claro"
-                android:text="Editar"
-                android:textColor="@color/white"
-                android:textStyle="bold"
-                app:cornerRadius="12dp" />
-
-            <!-- Apellido -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="Apellido"
-                android:textColor="@color/verde_oscuro"
-                android:textSize="14sp"
-                android:textStyle="bold" />
-
-            <EditText
-                android:id="@+id/etApellido"
-                android:layout_width="match_parent"
-                android:layout_height="52dp"
-                android:layout_marginTop="6dp"
-                android:background="@drawable/bg_campo_perfil"
-                android:enabled="false"
-                android:inputType="textPersonName"
-                android:paddingStart="16dp"
-                android:paddingEnd="16dp"
-                android:textColor="@color/verde_oscuro"
-                android:textSize="16sp" />
-
-            <Button
-                android:id="@+id/btnEditApellido"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end"
-                android:layout_marginTop="6dp"
-                android:backgroundTint="@color/verde_claro"
-                android:text="Editar"
-                android:textColor="@color/white"
-                android:textStyle="bold"
-                app:cornerRadius="12dp" />
-
-            <!-- Guardar -->
-            <Button
-                android:id="@+id/btnGuardar"
-                android:layout_width="match_parent"
-                android:layout_height="56dp"
-                android:layout_marginTop="24dp"
-                android:backgroundTint="@color/verde_claro"
-                android:text="Guardar"
-                android:textColor="@color/white"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                app:cornerRadius="12dp" />
-
-            <!-- Eliminar cuenta -->
-            <Button
-                android:id="@+id/btnEliminarCuenta"
-                android:layout_width="match_parent"
-                android:layout_height="56dp"
-                android:layout_marginTop="32dp"
-                android:backgroundTint="@color/rosa"
-                android:text="Eliminar Cuenta"
-                android:textColor="@color/verde_oscuro"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                app:cornerRadius="12dp" />
-
-        </LinearLayout>
-
-        <!-- ================ PANEL DE EXÁMENES ================= -->
-        <LinearLayout
-            android:id="@+id/layoutExamenes"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="24dp"
-            android:visibility="gone">
-
-            <Button
-                android:id="@+id/btnExamenesCreados"
-                android:layout_width="match_parent"
-                android:layout_height="56dp"
-                android:backgroundTint="@color/verde_claro"
-                android:text="Exámenes creados"
-                android:textColor="@color/white"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                app:cornerRadius="12dp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:text="Exámenes recientes"
-                android:textColor="@color/verde_oscuro"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-
+            <!-- ================ PANEL DE EXÁMENES ================= -->
             <LinearLayout
-                android:id="@+id/contenedorIntentos"
+                android:id="@+id/layoutExamenes"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical" />
+                android:orientation="vertical"
+                android:padding="24dp"
+                android:visibility="gone">
+
+                <Button
+                    android:id="@+id/btnExamenesCreados"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:backgroundTint="@color/verde_claro"
+                    android:text="Exámenes creados"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:cornerRadius="12dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:text="Exámenes recientes"
+                    android:textColor="@color/verde_oscuro"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:id="@+id/contenedorIntentos"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical" />
+
+            </LinearLayout>
 
         </LinearLayout>
-
-    </LinearLayout>
-</ScrollView>
+    </ScrollView>
+</LinearLayout>
