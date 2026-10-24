@@ -38,7 +38,6 @@
     <!-- Campo de Usuario -->
     <EditText
         android:id="@+id/etUsuario"
-
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:hint="Email"
@@ -47,36 +46,40 @@
         android:paddingEnd="16dp"
         android:background="@drawable/bg_campo_contacto"
         android:textColor="@color/verde_oscuro"
-
         android:layout_marginBottom="16dp" />
 
     <!-- Campo de Contraseña -->
-    <EditText
-        android:id="@+id/etPassword"
-
+    <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-
-        android:hint="Contraseña"
-        android:inputType="textPassword"
-
-        android:paddingStart="16dp"
-        android:paddingEnd="16dp"
-
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
         android:background="@drawable/bg_campo_contacto"
-        android:textColor="@color/verde_oscuro"
+        app:boxBackgroundMode="none"
+        app:hintEnabled="false"
+        app:endIconMode="password_toggle"
+        app:endIconTint="@color/verde_oscuro">
 
-        android:layout_marginBottom="24dp" />
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etPassword"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:hint="Contraseña"
+            android:inputType="textPassword"
+            android:textSize="18sp"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:paddingBottom="14dp"
+            android:background="@null"
+            android:textColor="@color/verde_oscuro" />
+    </com.google.android.material.textfield.TextInputLayout>
 
     <!-- Botón de ingreso -->
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnLogin"
-
         android:layout_width="match_parent"
         android:layout_height="50dp"
-
         android:text="INGRESAR"
-        android:textColor="@color/rosa_claro"
+        android:textColor="@color/white"
         android:textSize="16sp"
         android:textStyle="bold"
         android:background="@drawable/boton_login" />
