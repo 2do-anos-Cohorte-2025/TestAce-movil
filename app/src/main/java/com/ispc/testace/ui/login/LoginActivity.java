@@ -10,7 +10,6 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.ispc.testace.MainActivity;
 import com.ispc.testace.R;
 import com.ispc.testace.ui.registro.RegisterActivity;
 import com.ispc.testace.ui.home.HomeActivity;
@@ -51,6 +50,7 @@ public class LoginActivity extends AppCompatActivity {
 
         viewModel.getLoginExitoso().observe(this, exitoso -> {
             if (Boolean.TRUE.equals(exitoso)) {
+                Toast.makeText(this, "Iniciaste sesión", Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(LoginActivity.this, HomeActivity.class));
                 finish();
             }
