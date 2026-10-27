@@ -1,5 +1,6 @@
 package com.ispc.testace.ui.examenes;
 
+import androidx.appcompat.widget.Toolbar;
 import com.ispc.testace.data.model.Examen;
 import com.ispc.testace.data.service.ExamenService;
 import retrofit2.Call;
@@ -41,7 +42,10 @@ public class VistaPreviaExamenes extends AppCompatActivity {
         txtDuracion = findViewById(R.id.txtDuracion);
         Button btnComenzar = findViewById(R.id.btnComenzar);
 
-        View btnFlechitaVolver = findViewById(R.id.btnFlechitaVolver);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        toolbar.setNavigationIcon(androidx.appcompat.R.drawable.abc_ic_ab_back_material);
+        toolbar.setNavigationContentDescription("Volver");
+        toolbar.setNavigationOnClickListener(v -> finish());
 
         Intent intentRecibido = getIntent();
         if (intentRecibido != null) {
@@ -68,7 +72,7 @@ public class VistaPreviaExamenes extends AppCompatActivity {
         }
 
         btnComenzar.setOnClickListener(v -> comenzarExamen());
-        btnFlechitaVolver.setOnClickListener(v -> finish());
+
     }
 
 
